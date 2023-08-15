@@ -14,4 +14,8 @@
     <ProjectReference Include="..\Hero_MVC_AdoNet.Domain\Hero_MVC_AdoNet.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Procedures\" />
+  </ItemGroup>
+
 </Project>
