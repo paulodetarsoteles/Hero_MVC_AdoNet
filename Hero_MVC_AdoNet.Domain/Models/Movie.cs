@@ -12,6 +12,7 @@ namespace Hero_MVC_AdoNet.Domain.Models
         public string Name { get; set; }
 
         [Display(Name = "Nota")]
+        [Range(0, 10, ErrorMessage = "Digite uma nota entre 0 a 10 (sem vírgulas)")]
         public int Rate { get; set; }
     }
 }
