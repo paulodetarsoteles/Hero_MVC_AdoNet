@@ -1,5 +1,4 @@
 ﻿using Hero_MVC_AdoNet.Domain.Models;
-using Microsoft.AspNetCore.DataProtection;
 using System.ComponentModel.DataAnnotations;
 
 namespace Hero_MVC_AdoNet.Web.ViewModels
