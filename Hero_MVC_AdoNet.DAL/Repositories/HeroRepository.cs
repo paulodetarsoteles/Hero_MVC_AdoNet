@@ -1,10 +1,18 @@
-﻿using Hero_MVC_AdoNet.DAL.Repositories.Interfaces;
+﻿using Hero_MVC_AdoNet.DAL.Data;
+using Hero_MVC_AdoNet.DAL.Repositories.Interfaces;
 using Hero_MVC_AdoNet.Domain.Models;
+using Microsoft.Extensions.Options;
 
 namespace Hero_MVC_AdoNet.DAL.Repositories
 {
     public class HeroRepository : IHeroRepository
     {
+        private readonly ConnectionSetting _connection;
+
+        public HeroRepository(IOptions<ConnectionSetting> connection)
+        {
+            _connection = connection.Value;
+        }
 
         public List<Hero> GetAll()
         {
