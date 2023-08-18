@@ -2,6 +2,8 @@
 using Hero_MVC_AdoNet.DAL.Repositories.Interfaces;
 using Hero_MVC_AdoNet.Domain.Models;
 using Microsoft.Extensions.Options;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace Hero_MVC_AdoNet.DAL.Repositories
 {
@@ -16,7 +18,38 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
 
         public List<Secret> GetAll()
         {
-            throw new NotImplementedException();
+            List<Secret> result = new();
+            SqlCommand command = new("dbo.SecretGetAll");
+
+            try
+            {
+                command.Connection = new SqlConnection(_connection.DefaultConnection);
+                command.Connection.Open();
+                command.CommandType = CommandType.Text;
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    result.Add(new Secret
+                    {
+                        SecretId = Convert.ToInt32(reader["SecretId"]),
+                        Name = reader["Name"].ToString(),
+                        HeroId = Convert.ToInt32(reader["HeroId"])
+                    });
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new Exception("Erro ao acessar as informações do banco de dados.");
+            }
+            finally
+            {
+                if (command.Connection.State == ConnectionState.Open)
+                    command.Connection.Close();
+            }
+            return result;
         }
 
         public Secret GetById(int secretId)
