@@ -26,9 +26,17 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
             {
                 command.Connection = new SqlConnection(_connection.DefaultConnection);
                 command.Connection.Open();
-                command.CommandType = CommandType.Text;
+                command.CommandType = CommandType.StoredProcedure;
 
                 SqlDataReader reader = command.ExecuteReader();
+
+                if (!reader.Read())
+                {
+                    if (command.Connection.State == ConnectionState.Open)
+                        command.Connection.Close();
+
+                    throw new Exception("Lista não encontrada.");
+                }
 
                 while (reader.Read())
                 {
@@ -46,11 +54,10 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
                 Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
                 throw new Exception("Erro ao acessar as informações do banco de dados.");
             }
-            finally
-            {
-                if (command.Connection.State == ConnectionState.Open)
-                    command.Connection.Close();
-            }
+
+            if (command.Connection.State == ConnectionState.Open)
+                command.Connection.Close();
+
             return result;
         }
 
@@ -86,11 +93,10 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
                 Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
                 throw new Exception("Erro ao acessar as informações do banco de dados.");
             }
-            finally
-            {
-                if (command.Connection.State == ConnectionState.Open)
-                    command.Connection.Close();
-            }
+
+            if (command.Connection.State == ConnectionState.Open)
+                command.Connection.Close();
+
             return result;
         }
 

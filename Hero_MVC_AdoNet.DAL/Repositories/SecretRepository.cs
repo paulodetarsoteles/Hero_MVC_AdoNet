@@ -4,6 +4,7 @@ using Hero_MVC_AdoNet.Domain.Models;
 using Microsoft.Extensions.Options;
 using System.Data.SqlClient;
 using System.Data;
+using Hero_MVC_AdoNet.Domain.Enum;
 
 namespace Hero_MVC_AdoNet.DAL.Repositories
 {
@@ -25,9 +26,17 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
             {
                 command.Connection = new SqlConnection(_connection.DefaultConnection);
                 command.Connection.Open();
-                command.CommandType = CommandType.Text;
+                command.CommandType = CommandType.StoredProcedure;
 
                 SqlDataReader reader = command.ExecuteReader();
+
+                if (!reader.Read())
+                {
+                    if (command.Connection.State == ConnectionState.Open)
+                        command.Connection.Close();
+
+                    throw new Exception("Lista não encontrada.");
+                }
 
                 while (reader.Read())
                 {
@@ -54,7 +63,40 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
 
         public Secret GetById(int secretId)
         {
-            throw new NotImplementedException();
+            Secret result = new();
+            SqlCommand command = new("dbo.SecretGetById");
+
+            try
+            {
+                command.Connection = new SqlConnection(_connection.DefaultConnection);
+                command.Connection.Open();
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@WeaponId", SqlDbType.Int).Value = id;
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (!reader.Read())
+                {
+                    if (command.Connection.State == ConnectionState.Open)
+                        command.Connection.Close();
+
+                    throw new Exception("Objeto não encontrado.");
+                }
+
+                result.SecretId = Convert.ToInt32(reader["SecretId"]);
+                result.Name = reader["Name"].ToString();
+                result.HeroId = Convert.ToInt32(reader["HeroId"]);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new Exception("Erro ao acessar as informações do banco de dados.");
+            }
+
+            if (command.Connection.State == ConnectionState.Open)
+                command.Connection.Close();
+
+            return result;
         }
 
         public void Insert(Secret secret)
