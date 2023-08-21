@@ -4,8 +4,6 @@ using Hero_MVC_AdoNet.Domain.Models;
 using Microsoft.Extensions.Options;
 using System.Data.SqlClient;
 using System.Data;
-using System.Reflection;
-using System;
 
 namespace Hero_MVC_AdoNet.DAL.Repositories
 {
@@ -62,16 +60,6 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
             return result;
         }
 
-        public List<Weapon> GetAllPowers()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Secret> GetAllSecretIdentities()
-        {
-            throw new NotImplementedException();
-        }
-
         public Hero GetById(int heroId)
         {
             Hero result = new();
@@ -111,16 +99,6 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
             return result;
         }
 
-        public bool HasWeapon(int heroId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int CountFilms(int heroId)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Insert(Hero hero)
         {
             throw new NotImplementedException();
@@ -131,19 +109,43 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public void UpdatePowers(List<Weapon> weapons)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CleanPowers(int heroId)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Delete(int heroId)
         {
             throw new NotImplementedException();
         }
+
+        #region SpecificMethods
+
+        public List<Weapon> GetAllPowers()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Secret> GetAllSecretIdentities()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool HasWeaponByHeroId(int heroId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int CountFilmsByHeroId(int heroId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CleanPowersByHeroId(int heroId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdatePowersByHeroIdAndListWeaponId(int heroId, List<int> weaponsId)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

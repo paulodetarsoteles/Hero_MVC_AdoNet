@@ -12,9 +12,9 @@ namespace Hero_MVC_AdoNet.DAL.Repositories.Interfaces
 
         List<Weapon> GetAllPowers();
         List<Secret> GetAllSecretIdentities();
-        bool HasWeapon(int heroId);
-        int CountFilms(int heroId);
-        public void CleanPowers(int heroId);
-        public void UpdatePowers(List<Weapon> weapons);
+        bool HasWeaponByHeroId(int heroId);
+        int CountFilmsByHeroId(int heroId);
+        public void CleanPowersByHeroId(int heroId);
+        public void UpdatePowersByHeroIdAndListWeaponId(int heroId, List<int> weaponsId);
     }
 }
