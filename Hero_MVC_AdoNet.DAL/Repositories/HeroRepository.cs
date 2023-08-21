@@ -31,6 +31,14 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
 
                 SqlDataReader reader = command.ExecuteReader();
 
+                if (!reader.Read())
+                {
+                    if (command.Connection.State == ConnectionState.Open)
+                        command.Connection.Close();
+
+                    throw new Exception("Lista não encontrada.");
+                }
+
                 while (reader.Read())
                 {
                     result.Add(new Hero
@@ -47,11 +55,10 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
                 Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
                 throw new Exception("Erro ao acessar as informações do banco de dados.");
             }
-            finally
-            {
-                if (command.Connection.State == ConnectionState.Open)
-                    command.Connection.Close();
-            }
+
+            if (command.Connection.State == ConnectionState.Open)
+                command.Connection.Close();
+
             return result;
         }
 
@@ -67,7 +74,41 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
 
         public Hero GetById(int heroId)
         {
-            throw new NotImplementedException();
+            Hero result = new();
+            SqlCommand command = new("dbo.MovieGetById");
+
+            try
+            {
+                command.Connection = new SqlConnection(_connection.DefaultConnection);
+                command.Connection.Open();
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@HeroId", SqlDbType.Int).Value = heroId;
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (!reader.Read())
+                {
+                    if (command.Connection.State == ConnectionState.Open)
+                        command.Connection.Close();
+
+                    throw new Exception("Objeto não encontrado.");
+                }
+
+                result.HeroId = Convert.ToInt32(reader["HeroId"]);
+                result.Name = reader["Name"].ToString();
+                result.Active = Convert.ToBoolean(reader["Active"]);
+                result.UpdateDate = Convert.ToDateTime(reader["UpdateDate"]);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new Exception("Erro ao acessar as informações do banco de dados.");
+            }
+
+            if (command.Connection.State == ConnectionState.Open)
+                command.Connection.Close();
+
+            return result;
         }
 
         public bool HasWeapon(int heroId)
