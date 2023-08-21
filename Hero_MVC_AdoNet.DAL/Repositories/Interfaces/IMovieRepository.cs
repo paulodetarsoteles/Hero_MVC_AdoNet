@@ -5,13 +5,13 @@ namespace Hero_MVC_AdoNet.DAL.Repositories.Interfaces
     public interface IMovieRepository
     {
         List<Movie> GetAll();
-        Secret GetById(int movieId);
+        Movie GetById(int movieId);
         void Insert(Movie movie);
         void Update(Movie movie);
         void Delete(int movieId);
 
         List<Hero> GetAllHeroes();
-        List<Hero> GetHeroes(int movieId);
+        List<Hero> GetHeroesByMovieId(int movieId);
         bool IsPresent(int movieId, int heroId);
     }
 }

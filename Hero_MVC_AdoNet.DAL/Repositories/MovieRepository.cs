@@ -28,6 +28,14 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
 
                 SqlDataReader reader = command.ExecuteReader();
 
+                if (!reader.Read())
+                {
+                    if (command.Connection.State == ConnectionState.Open)
+                        command.Connection.Close();
+
+                    throw new Exception("Lista não encontrada.");
+                }
+
                 while (reader.Read())
                 {
                     result.Add(new Movie
@@ -43,11 +51,10 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
                 Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
                 throw new Exception("Erro ao acessar as informações do banco de dados.");
             }
-            finally
-            {
-                if (command.Connection.State == ConnectionState.Open)
-                    command.Connection.Close();
-            }
+
+            if (command.Connection.State == ConnectionState.Open)
+                command.Connection.Close();
+
             return result;
         }
 
@@ -56,14 +63,47 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public List<Hero> GetHeroes(int movieId)
+        public List<Hero> GetHeroesByMovieId(int movieId)
         {
             throw new NotImplementedException();
         }
 
-        public Secret GetById(int movieId)
+        public Movie GetById(int movieId)
         {
-            throw new NotImplementedException();
+            Movie result = new();
+            SqlCommand command = new("dbo.MovieGetById");
+
+            try
+            {
+                command.Connection = new SqlConnection(_connection.DefaultConnection);
+                command.Connection.Open();
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@MovieId", SqlDbType.Int).Value = movieId;
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (!reader.Read())
+                {
+                    if (command.Connection.State == ConnectionState.Open)
+                        command.Connection.Close();
+
+                    throw new Exception("Objeto não encontrado.");
+                }
+
+                result.MovieId = Convert.ToInt32(reader["MovieId"]);
+                result.Name = reader["Name"].ToString();
+                result.Rate = Convert.ToInt32(reader["Rate"]);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new Exception("Erro ao acessar as informações do banco de dados.");
+            }
+
+            if (command.Connection.State == ConnectionState.Open)
+                command.Connection.Close();
+
+            return result;
         }
 
         public bool IsPresent(int movieId, int heroId)

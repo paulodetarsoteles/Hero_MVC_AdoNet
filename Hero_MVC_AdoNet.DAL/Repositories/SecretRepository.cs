@@ -2,9 +2,8 @@
 using Hero_MVC_AdoNet.DAL.Repositories.Interfaces;
 using Hero_MVC_AdoNet.Domain.Models;
 using Microsoft.Extensions.Options;
-using System.Data.SqlClient;
 using System.Data;
-using Hero_MVC_AdoNet.Domain.Enum;
+using System.Data.SqlClient;
 
 namespace Hero_MVC_AdoNet.DAL.Repositories
 {
@@ -53,11 +52,10 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
                 Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
                 throw new Exception("Erro ao acessar as informações do banco de dados.");
             }
-            finally
-            {
-                if (command.Connection.State == ConnectionState.Open)
-                    command.Connection.Close();
-            }
+
+            if (command.Connection.State == ConnectionState.Open)
+                command.Connection.Close();
+
             return result;
         }
 
@@ -71,7 +69,7 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
                 command.Connection = new SqlConnection(_connection.DefaultConnection);
                 command.Connection.Open();
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.Add("@WeaponId", SqlDbType.Int).Value = id;
+                command.Parameters.Add("@SecretId", SqlDbType.Int).Value = secretId;
 
                 SqlDataReader reader = command.ExecuteReader();
 

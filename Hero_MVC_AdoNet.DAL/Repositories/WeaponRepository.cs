@@ -61,7 +61,7 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
             return result;
         }
 
-        public Weapon GetById(int id)
+        public Weapon GetById(int weaponId)
         {
             Weapon result = new();
             SqlCommand command = new("dbo.WeaponGetById");
@@ -71,7 +71,7 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
                 command.Connection = new SqlConnection(_connection.DefaultConnection);
                 command.Connection.Open();
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.Add("@WeaponId", SqlDbType.Int).Value = id;
+                command.Parameters.Add("@WeaponId", SqlDbType.Int).Value = weaponId;
 
                 SqlDataReader reader = command.ExecuteReader();
 
