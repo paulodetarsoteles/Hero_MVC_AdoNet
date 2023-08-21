@@ -12,6 +12,6 @@ namespace Hero_MVC_AdoNet.DAL.Repositories.Interfaces
 
         List<Hero> GetAllHeroes();
         List<Hero> GetHeroesByMovieId(int movieId);
-        bool IsPresent(int movieId, int heroId);
+        bool IsPresentByMovieIdAndHeroId(int movieId, int heroId);
     }
 }

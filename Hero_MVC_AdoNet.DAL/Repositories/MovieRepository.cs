@@ -2,8 +2,8 @@
 using Hero_MVC_AdoNet.DAL.Repositories.Interfaces;
 using Hero_MVC_AdoNet.Domain.Models;
 using Microsoft.Extensions.Options;
-using System.Data.SqlClient;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace Hero_MVC_AdoNet.DAL.Repositories
 {
@@ -15,6 +15,7 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
         {
             _connection = connection.Value;
         }
+
         public List<Movie> GetAll()
         {
             List<Movie> result = new();
@@ -58,16 +59,6 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
             return result;
         }
 
-        public List<Hero> GetAllHeroes()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Hero> GetHeroesByMovieId(int movieId)
-        {
-            throw new NotImplementedException();
-        }
-
         public Movie GetById(int movieId)
         {
             Movie result = new();
@@ -106,11 +97,6 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
             return result;
         }
 
-        public bool IsPresent(int movieId, int heroId)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Insert(Movie movie)
         {
             throw new NotImplementedException();
@@ -125,5 +111,24 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
         {
             throw new NotImplementedException();
         }
+
+        #region SpecificMethods
+
+        public List<Hero> GetAllHeroes()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Hero> GetHeroesByMovieId(int movieId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsPresentByMovieIdAndHeroId(int movieId, int heroId)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

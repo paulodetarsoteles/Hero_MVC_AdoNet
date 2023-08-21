@@ -2,8 +2,8 @@
 using Hero_MVC_AdoNet.DAL.Repositories.Interfaces;
 using Hero_MVC_AdoNet.Domain.Models;
 using Microsoft.Extensions.Options;
-using System.Data.SqlClient;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace Hero_MVC_AdoNet.DAL.Repositories
 {
