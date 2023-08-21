@@ -10,6 +10,6 @@ namespace Hero_MVC_AdoNet.DAL.Repositories.Interfaces
         void Update(Weapon weapon);
         void Delete(int weaponId);
 
-        Hero GetHero(int weaponId);
+        Hero GetHeroByWeaponId(int weaponId);
     }
 }

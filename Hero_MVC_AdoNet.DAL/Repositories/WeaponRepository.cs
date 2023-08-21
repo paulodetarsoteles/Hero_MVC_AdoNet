@@ -1,11 +1,10 @@
 ﻿using Hero_MVC_AdoNet.DAL.Data;
 using Hero_MVC_AdoNet.DAL.Repositories.Interfaces;
+using Hero_MVC_AdoNet.Domain.Enum;
 using Hero_MVC_AdoNet.Domain.Models;
 using Microsoft.Extensions.Options;
-using System.Data.SqlClient;
 using System.Data;
-using Hero_MVC_AdoNet.Domain.Enum;
-using System.Xml.Linq;
+using System.Data.SqlClient;
 
 namespace Hero_MVC_AdoNet.DAL.Repositories
 {
@@ -17,6 +16,7 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
         {
             _connection = connection.Value;
         }
+
         public List<Weapon> GetAll()
         {
             List<Weapon> result = new();
@@ -100,11 +100,6 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
             return result;
         }
 
-        public Hero GetHero(int weaponId)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Insert(Weapon weapon)
         {
             throw new NotImplementedException();
@@ -119,5 +114,14 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
         {
             throw new NotImplementedException();
         }
+
+        #region SpecificMethods
+
+        public Hero GetHeroByWeaponId(int weaponId)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }
