@@ -25,12 +25,12 @@ namespace Hero_MVC_AdoNet.Web.Services
 
             try
             {
-                List<Hero> heroList = _heroRepository.GetAll();
+                List<Hero> heroes = _heroRepository.GetAll();
 
-                if (heroList.Count == 0)
+                if (heroes.Count == 0)
                     return result;
 
-                foreach (Hero hero in heroList)
+                foreach (Hero hero in heroes)
                     result.Add(new HeroViewModel
                     {
                         HeroId = hero.HeroId,
@@ -38,12 +38,14 @@ namespace Hero_MVC_AdoNet.Web.Services
                         Active = hero.Active,
                         UpdateDate = hero.UpdateDate
                     });
+
+                return result;
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Erro: {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new(e.Message);
             }
-            return result;
         }
     }
 }
