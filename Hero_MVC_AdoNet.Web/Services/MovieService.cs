@@ -21,10 +21,9 @@ namespace Hero_MVC_AdoNet.Web.Services
 
         public List<MovieViewModel> GetAll()
         {
-            List<MovieViewModel> result = new();
-
             try
             {
+                List<MovieViewModel> result = new();
                 List<Movie> movies = _movieRepository.GetAll();
 
                 if (movies.Count == 0)

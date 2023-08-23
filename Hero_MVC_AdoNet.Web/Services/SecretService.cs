@@ -1,4 +1,6 @@
 ﻿using Hero_MVC_AdoNet.DAL.Repositories.Interfaces;
+using Hero_MVC_AdoNet.Domain.Models;
+using Hero_MVC_AdoNet.Web.ViewModels;
 
 namespace Hero_MVC_AdoNet.Web.Services
 {
@@ -15,6 +17,30 @@ namespace Hero_MVC_AdoNet.Web.Services
             _movieRepository = movieRepository;
             _secretRepository = secretRepository;
             _weaponRepository = weaponRepository;
+        }
+
+        public List<SecretViewModel> GetAll()
+        {
+            try
+            {
+                List<SecretViewModel> result = new();
+                List<Secret> secrets = _secretRepository.GetAll();
+
+                foreach (Secret secret in secrets)
+                    result.Add(new SecretViewModel
+                    {
+                        SecretId = secret.SecretId,
+                        Name = secret.Name,
+                        HeroId = secret.HeroId
+                    });
+                
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Erro: {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new(e.Message);
+            }
         }
     }
 }

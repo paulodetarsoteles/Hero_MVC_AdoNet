@@ -21,10 +21,9 @@ namespace Hero_MVC_AdoNet.Web.Services
 
         public List<HeroViewModel> GetAll()
         {
-            List<HeroViewModel> result = new();
-
             try
             {
+                List<HeroViewModel> result = new();
                 List<Hero> heroes = _heroRepository.GetAll();
 
                 if (heroes.Count == 0)
