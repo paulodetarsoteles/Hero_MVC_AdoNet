@@ -34,7 +34,7 @@ namespace Hero_MVC_AdoNet.Web.Services
                         Type = weapon.Type,
                         HeroId = weapon.HeroId
                     });
-                
+
                 return result;
             }
             catch (Exception e)

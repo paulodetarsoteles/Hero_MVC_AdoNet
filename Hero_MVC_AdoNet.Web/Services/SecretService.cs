@@ -33,7 +33,7 @@ namespace Hero_MVC_AdoNet.Web.Services
                         Name = secret.Name,
                         HeroId = secret.HeroId
                     });
-                
+
                 return result;
             }
             catch (Exception e)
