@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Hero_MVC_AdoNet.DAL\Hero_MVC_AdoNet.DAL.csproj" />
     <ProjectReference Include="..\Hero_MVC_AdoNet.Domain\Hero_MVC_AdoNet.Domain.csproj" />
   </ItemGroup>
