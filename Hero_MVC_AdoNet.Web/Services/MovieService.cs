@@ -23,11 +23,12 @@ namespace Hero_MVC_AdoNet.Web.Services
         {
             try
             {
-                List<MovieViewModel> result = new();
                 List<Movie> movies = _movieRepository.GetAll();
 
                 if (movies.Count == 0)
-                    return result;
+                    return null;
+
+                List<MovieViewModel> result = new();
 
                 foreach (Movie movie in movies)
                     result.Add(new MovieViewModel
@@ -36,6 +37,30 @@ namespace Hero_MVC_AdoNet.Web.Services
                         Name = movie.Name,
                         Rate = movie.Rate
                     });
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Erro: {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new(e.Message);
+            }
+        }
+
+        public MovieViewModel GetById(int id)
+        {
+            try
+            {
+                Movie movie = _movieRepository.GetById(id);
+
+                if (movie is null) 
+                    return null;
+
+                MovieViewModel result = new();
+
+                result.MovieId = movie.MovieId;
+                result.Name = movie.Name;
+                result.Rate = movie.Rate;
 
                 return result;
             }

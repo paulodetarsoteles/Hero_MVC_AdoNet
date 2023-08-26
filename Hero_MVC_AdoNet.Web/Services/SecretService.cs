@@ -42,5 +42,29 @@ namespace Hero_MVC_AdoNet.Web.Services
                 throw new(e.Message);
             }
         }
+
+        public SecretViewModel GetById(string id)
+        {
+            try
+            {
+                Secret secret = _secretRepository.GetById(id);
+
+                if (secret is null)
+                    return null;
+
+                SecretViewModel result = new();
+
+                result.SecretId = secret.SecretId;
+                result.Name = secret.Name;
+                result.HeroId = secret.HeroId;
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Erro: {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new(e.Message);
+            }
+        }
     }
 }

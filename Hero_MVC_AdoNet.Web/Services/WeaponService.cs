@@ -43,5 +43,30 @@ namespace Hero_MVC_AdoNet.Web.Services
                 throw new(e.Message);
             }
         }
+
+        public WeaponViewModel GetById(int id)
+        {
+            try
+            {
+                Weapon weapon = _weaponRepository.GetById(id);
+
+                if (weapon is null)
+                    return null;
+
+                WeaponViewModel result = new();
+
+                result.WeaponId = weapon.WeaponId;
+                result.Name = weapon.Name;
+                result.Type = weapon.Type;
+                result.HeroId = weapon.HeroId;
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Erro: {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new(e.Message);
+            }
+        }
     }
 }
