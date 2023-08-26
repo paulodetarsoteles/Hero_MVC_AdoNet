@@ -1,4 +1,4 @@
-﻿using Hero_MVC_AdoNet.Web.Services;
+﻿using Hero_MVC_AdoNet.Web.Services.Interfaces;
 using Hero_MVC_AdoNet.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +6,9 @@ namespace Hero_MVC_AdoNet.Web.Controllers
 {
     public class MovieController : Controller
     {
-        private readonly MovieService _service;
+        private readonly IMovieService _service;
 
-        public MovieController(MovieService service)
+        public MovieController(IMovieService service)
         {
             _service = service;
         }

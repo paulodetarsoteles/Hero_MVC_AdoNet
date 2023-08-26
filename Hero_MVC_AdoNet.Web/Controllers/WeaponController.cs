@@ -1,4 +1,4 @@
-﻿using Hero_MVC_AdoNet.Web.Services;
+﻿using Hero_MVC_AdoNet.Web.Services.Interfaces;
 using Hero_MVC_AdoNet.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +6,9 @@ namespace Hero_MVC_AdoNet.Web.Controllers
 {
     public class WeaponController : Controller
     {
-        private readonly WeaponService _service;
+        private readonly IWeaponService _service;
 
-        public WeaponController(WeaponService service)
+        public WeaponController(IWeaponService service)
         {
             _service = service;
         }

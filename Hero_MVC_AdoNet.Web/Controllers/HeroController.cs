@@ -1,4 +1,4 @@
-﻿using Hero_MVC_AdoNet.Web.Services;
+﻿using Hero_MVC_AdoNet.Web.Services.Interfaces;
 using Hero_MVC_AdoNet.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +6,9 @@ namespace Hero_MVC_AdoNet.Web.Controllers
 {
     public class HeroController : Controller
     {
-        private readonly HeroService _service;
+        private readonly IHeroService _service;
 
-        public HeroController(HeroService service)
+        public HeroController(IHeroService service)
         {
             _service = service;
         }

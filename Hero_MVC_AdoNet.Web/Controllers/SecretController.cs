@@ -1,4 +1,4 @@
-﻿using Hero_MVC_AdoNet.Web.Services;
+﻿using Hero_MVC_AdoNet.Web.Services.Interfaces;
 using Hero_MVC_AdoNet.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +6,9 @@ namespace Hero_MVC_AdoNet.Web.Controllers
 {
     public class SecretController : Controller
     {
-        private readonly SecretService _service;
+        private readonly ISecretService _service;
 
-        public SecretController(SecretService service)
+        public SecretController(ISecretService service)
         {
             _service = service;
         }

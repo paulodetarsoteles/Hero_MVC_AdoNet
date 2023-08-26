@@ -1,10 +1,11 @@
 ﻿using Hero_MVC_AdoNet.DAL.Repositories.Interfaces;
 using Hero_MVC_AdoNet.Domain.Models;
+using Hero_MVC_AdoNet.Web.Services.Interfaces;
 using Hero_MVC_AdoNet.Web.ViewModels;
 
 namespace Hero_MVC_AdoNet.Web.Services
 {
-    public class MovieService
+    public class MovieService : IMovieService
     {
         private readonly IHeroRepository _heroRepository;
         private readonly IMovieRepository _movieRepository;
