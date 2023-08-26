@@ -20,5 +20,13 @@ namespace Hero_MVC_AdoNet.Web.Controllers
 
             return View(modelList);
         }
+
+        public IActionResult Details(int id)
+        {
+            SecretViewModel model = new();
+            model = _service.GetById(id);
+
+            return View(model);
+        }
     }
 }
