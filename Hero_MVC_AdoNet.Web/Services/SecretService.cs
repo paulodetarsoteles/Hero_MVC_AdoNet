@@ -43,7 +43,7 @@ namespace Hero_MVC_AdoNet.Web.Services
             }
         }
 
-        public SecretViewModel GetById(string id)
+        public SecretViewModel GetById(int id)
         {
             try
             {

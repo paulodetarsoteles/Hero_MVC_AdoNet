@@ -1,5 +1,62 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<HeroViewModel>
+
 @{
+    ViewData["Title"] = "Heróis";
+}
+
+<h1>Heróis</h1>
+<p>
+    <a asp-action="Create">Novo Herói</a>
+</p>
+@if (Model.Count() < 1)
+{
+    <p>
+        Nenhum herói cadastrado...
+    </p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.HeroId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Active)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UpdateDate)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HeroId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Active)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UpdateDate)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new { id = item.HeroId  }) |
+                        @Html.ActionLink("Detalhes", "Details", new { id = item.HeroId }) |
+                        @Html.ActionLink("Excluir", "Delete", new { id = item.HeroId })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
