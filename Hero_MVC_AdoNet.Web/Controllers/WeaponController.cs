@@ -1,12 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Hero_MVC_AdoNet.Web.Services;
+using Hero_MVC_AdoNet.Web.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Hero_MVC_AdoNet.Web.Controllers
 {
     public class WeaponController : Controller
     {
+        private readonly WeaponService _service;
+
+        public WeaponController(WeaponService service)
+        {
+            _service = service;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            List<WeaponViewModel> modelList = new();
+            modelList = _service.GetAll();
+
+            return View(modelList);
         }
     }
 }
