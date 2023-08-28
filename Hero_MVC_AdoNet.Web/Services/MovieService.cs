@@ -54,7 +54,7 @@ namespace Hero_MVC_AdoNet.Web.Services
             {
                 Movie movie = _movieRepository.GetById(id);
 
-                if (movie is null) 
+                if (movie is null)
                     return null;
 
                 MovieViewModel result = new();

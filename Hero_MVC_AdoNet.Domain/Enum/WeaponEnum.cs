@@ -2,7 +2,7 @@
 {
     public enum WeaponEnum
     {
-        Default = 1, 
+        Default = 1,
         Power = 2
     }
 }
