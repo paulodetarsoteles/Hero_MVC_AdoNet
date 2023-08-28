@@ -25,7 +25,7 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
             {
                 command.Connection = new SqlConnection(_connection.DefaultConnection);
                 command.Connection.Open();
-                command.CommandType = CommandType.Text;
+                command.CommandType = CommandType.StoredProcedure;
 
                 SqlDataReader reader = command.ExecuteReader();
 
