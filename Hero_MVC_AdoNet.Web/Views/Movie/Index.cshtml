@@ -1,5 +1,56 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<MovieViewModel>
+
 @{
+    ViewData["Title"] = "Filmes";
+}
+
+<h1>Filmes</h1>
+<p>
+    <a asp-action="Create">Novo Filme</a>
+</p>
+@if (Model.Count() == 0)
+{
+    <p>
+        Nenhum filme cadastrado...
+    </p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.MovieId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Rate)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MovieId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Rate)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new { id = item.MovieId }) |
+                        @Html.ActionLink("Detalhes", "Details", new { id = item.MovieId }) |
+                        @Html.ActionLink("Excluir", "Delete", new { id = item.MovieId })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }

@@ -1,5 +1,56 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<WeaponViewModel>
+
 @{
+    ViewData["Title"] = "Armas/Poderes";
+}
+
+<h1>Armas/Poderes</h1>
+<p>
+    <a asp-action="Create">Nova Arma/Poder</a>
+</p>
+@if (Model.Count() == 0)
+{
+    <p>
+        Nenhuma arma/poder cadastrada...
+    </p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.WeaponId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Type)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WeaponId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new { id = item.WeaponId }) |
+                        @Html.ActionLink("Detalhes", "Details", new { id = item.WeaponId }) |
+                        @Html.ActionLink("Excluir", "Delete", new { id = item.WeaponId })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
