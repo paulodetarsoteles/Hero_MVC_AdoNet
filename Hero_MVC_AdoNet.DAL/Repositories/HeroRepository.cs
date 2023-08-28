@@ -29,13 +29,9 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
 
                 SqlDataReader reader = command.ExecuteReader();
 
-                if (!reader.Read())
-                {
-                    if (command.Connection.State == ConnectionState.Open)
-                        command.Connection.Close();
 
-                    throw new Exception("Lista não encontrada.");
-                }
+                if (!reader.Read())
+                    return result;
 
                 while (reader.Read())
                 {
@@ -47,17 +43,19 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
                         UpdateDate = Convert.ToDateTime(reader["UpdateDate"])
                     });
                 }
+
+                return result;
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
                 throw new Exception("Erro ao acessar as informações do banco de dados.");
             }
-
-            if (command.Connection.State == ConnectionState.Open)
-                command.Connection.Close();
-
-            return result;
+            finally
+            {
+                if (command.Connection.State == ConnectionState.Open)
+                    command.Connection.Close();
+            }
         }
 
         public Hero GetById(int heroId)
@@ -75,28 +73,25 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
                 SqlDataReader reader = command.ExecuteReader();
 
                 if (!reader.Read())
-                {
-                    if (command.Connection.State == ConnectionState.Open)
-                        command.Connection.Close();
-
-                    throw new Exception("Objeto não encontrado.");
-                }
+                    return result;
 
                 result.HeroId = Convert.ToInt32(reader["HeroId"]);
                 result.Name = reader["Name"].ToString();
                 result.Active = Convert.ToBoolean(reader["Active"]);
                 result.UpdateDate = Convert.ToDateTime(reader["UpdateDate"]);
+
+                return result;
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
                 throw new Exception("Erro ao acessar as informações do banco de dados.");
             }
-
-            if (command.Connection.State == ConnectionState.Open)
-                command.Connection.Close();
-
-            return result;
+            finally
+            {
+                if (command.Connection.State == ConnectionState.Open)
+                    command.Connection.Close();
+            }
         }
 
         public void Insert(Hero hero)

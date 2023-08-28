@@ -74,27 +74,24 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
                 SqlDataReader reader = command.ExecuteReader();
 
                 if (!reader.Read())
-                {
-                    if (command.Connection.State == ConnectionState.Open)
-                        command.Connection.Close();
-
-                    throw new Exception("Objeto não encontrado.");
-                }
+                    return result;
 
                 result.SecretId = Convert.ToInt32(reader["SecretId"]);
                 result.Name = reader["Name"].ToString();
                 result.HeroId = Convert.ToInt32(reader["HeroId"]);
+
+                return result;
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
                 throw new Exception("Erro ao acessar as informações do banco de dados.");
             }
-
-            if (command.Connection.State == ConnectionState.Open)
-                command.Connection.Close();
-
-            return result;
+            finally
+            {
+                if (command.Connection.State == ConnectionState.Open)
+                    command.Connection.Close();
+            }
         }
 
         public void Insert(Secret secret)

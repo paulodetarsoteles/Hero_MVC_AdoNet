@@ -15,18 +15,32 @@ namespace Hero_MVC_AdoNet.Web.Controllers
 
         public IActionResult Index()
         {
-            List<HeroViewModel> modelList = new();
-            modelList = _service.GetAll();
+            try
+            {
+                List<HeroViewModel> modelList = _service.GetAll();
+                modelList ??= new();
 
-            return View(modelList);
+                return View(modelList);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public IActionResult Details(int id)
         {
-            HeroViewModel model = new();
-            model = _service.GetById(id);
+            try
+            {
+                HeroViewModel model = _service.GetById(id);
+                model ??= new();
 
-            return View(model);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
     }
 }
