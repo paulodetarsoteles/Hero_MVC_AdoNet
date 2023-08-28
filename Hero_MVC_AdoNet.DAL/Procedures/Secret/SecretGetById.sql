@@ -1,0 +1,16 @@
+﻿USE [db_Hero_MVC_AdoNet]
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[SecretGetById]
+	@SecretId int
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SELECT TOP 1 * 
+		FROM Secrets
+		WHERE SecretId = @SecretId
+	ORDER BY 1 DESC 
+	OPTION (MAXDOP 2)
+END
