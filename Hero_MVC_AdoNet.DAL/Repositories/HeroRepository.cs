@@ -94,7 +94,7 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
             }
         }
 
-        public void Insert(Hero hero)
+        public bool Insert(Hero hero)
         {
             SqlCommand command = new("db.HeroInsert");
 
@@ -111,7 +111,9 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
                 hero.HeroId = (int)command.ExecuteScalar();
 
                 if (hero.HeroId == 0 )
-                    throw new("Erro ao inserir entidade no banco de dados.");
+                    return false;
+
+                return true;
             }
             catch (Exception e)
             {

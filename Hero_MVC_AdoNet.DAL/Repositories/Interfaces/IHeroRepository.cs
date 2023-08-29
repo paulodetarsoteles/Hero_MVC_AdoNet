@@ -6,7 +6,7 @@ namespace Hero_MVC_AdoNet.DAL.Repositories.Interfaces
     {
         List<Hero> GetAll();
         Hero GetById(int heroId);
-        void Insert(Hero hero);
+        bool Insert(Hero hero);
         void Update(Hero hero);
         void Delete(int heroId);
 

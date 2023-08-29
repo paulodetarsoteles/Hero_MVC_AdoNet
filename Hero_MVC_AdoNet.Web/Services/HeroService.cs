@@ -73,5 +73,26 @@ namespace Hero_MVC_AdoNet.Web.Services
                 throw new(e.Message);
             }
         }
+
+        public bool Insert(HeroViewModel model)
+        {
+            try
+            {
+                Hero hero = new()
+                {
+                    HeroId = model.HeroId,
+                    Name = model.Name,
+                    Active = model.Active,
+                    UpdateDate = model.UpdateDate
+                };
+
+                return _heroRepository.Insert(hero);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Erro: {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new(e.Message);
+            }
+        }
     }
 }
