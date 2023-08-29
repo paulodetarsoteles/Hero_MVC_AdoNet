@@ -96,7 +96,33 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
 
         public void Insert(Hero hero)
         {
-            throw new NotImplementedException();
+            SqlCommand command = new("db.HeroInsert");
+
+            try
+            {
+                command.Connection = new SqlConnection(_connection.DefaultConnection);
+                command.Connection.Open();
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("@Name", SqlDbType.VarChar).Value = hero.Name;
+                command.Parameters.Add("@Active", SqlDbType.Bit).Value = hero.Active;
+                command.Parameters.Add("@UpdateDate", SqlDbType.DateTime).Value = hero.UpdateDate;
+
+                hero.HeroId = (int)command.ExecuteScalar();
+
+                if (hero.HeroId == 0 )
+                    throw new("Erro ao inserir entidade no banco de dados.");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new Exception("Erro ao inserir entidade no banco de dados.");
+            }
+            finally
+            {
+                if (command.Connection.State == ConnectionState.Open)
+                    command.Connection.Close();
+            }
         }
 
         public void Update(Hero hero)
