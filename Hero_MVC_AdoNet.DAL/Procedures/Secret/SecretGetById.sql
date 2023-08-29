@@ -7,7 +7,6 @@ CREATE PROCEDURE [dbo].[SecretGetById]
 	@SecretId int
 AS
 BEGIN
-	SET NOCOUNT ON;
 	SELECT TOP 1 * 
 		FROM Secrets
 		WHERE SecretId = @SecretId

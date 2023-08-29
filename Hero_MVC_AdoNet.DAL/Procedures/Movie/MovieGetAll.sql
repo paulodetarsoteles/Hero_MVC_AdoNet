@@ -6,7 +6,6 @@ GO
 CREATE PROCEDURE [dbo].[MovieGetAll] 
 AS
 BEGIN
-	SET NOCOUNT ON;
 	SELECT * 
 		FROM Movies
 	ORDER BY 1 DESC 

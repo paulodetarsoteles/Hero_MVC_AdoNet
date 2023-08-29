@@ -19,7 +19,6 @@ namespace Hero_MVC_AdoNet.Web.ViewModels
         public DateTime UpdateDate { get; set; }
 
         [Display(Name = "Id. Secreta")]
-        [Required(ErrorMessage = "Campo obrigatório")]
         public Secret Secret { get; set; }
 
         [Display(Name = "Armas")]

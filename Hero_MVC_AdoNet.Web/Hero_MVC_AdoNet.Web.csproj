@@ -7,24 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Hero\Create.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Hero_MVC_AdoNet.DAL\Hero_MVC_AdoNet.DAL.csproj" />
     <ProjectReference Include="..\Hero_MVC_AdoNet.Domain\Hero_MVC_AdoNet.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\Hero\Create.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Views\Hero\Create.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Views\Hero\Create.cshtml" />
   </ItemGroup>
 
 </Project>

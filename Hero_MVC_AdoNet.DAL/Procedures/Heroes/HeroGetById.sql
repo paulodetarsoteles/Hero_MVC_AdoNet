@@ -7,7 +7,6 @@ CREATE PROCEDURE HeroGetById
 	@HeroId int
 AS
 BEGIN
-	SET NOCOUNT ON;
 	SELECT TOP 1 * 
 		FROM Heroes
 		WHERE HeroId = @HeroId

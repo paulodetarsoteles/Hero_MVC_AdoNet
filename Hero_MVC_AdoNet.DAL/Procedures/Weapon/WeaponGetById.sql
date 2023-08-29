@@ -7,7 +7,6 @@ CREATE PROCEDURE [dbo].[WeaponGetById]
 	@WeaponId int
 AS
 BEGIN
-	SET NOCOUNT ON;
 	SELECT TOP 1 * 
 		FROM Weapons
 		WHERE WeaponId = @WeaponId

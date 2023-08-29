@@ -7,7 +7,6 @@ CREATE PROCEDURE [dbo].[MovieGetById]
 	@MovieId int
 AS
 BEGIN
-	SET NOCOUNT ON;
 	SELECT TOP 1 * 
 		FROM Movies
 		WHERE MovieId = @MovieId

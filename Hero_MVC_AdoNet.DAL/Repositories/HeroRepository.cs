@@ -29,8 +29,7 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
 
                 SqlDataReader reader = command.ExecuteReader();
 
-
-                if (!reader.Read())
+                if (!reader.HasRows)
                     return result;
 
                 while (reader.Read())
@@ -96,7 +95,7 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
 
         public bool Insert(Hero hero)
         {
-            SqlCommand command = new("db.HeroInsert");
+            SqlCommand command = new("dbo.HeroInsert");
 
             try
             {

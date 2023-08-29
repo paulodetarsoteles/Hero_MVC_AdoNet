@@ -43,7 +43,7 @@ namespace Hero_MVC_AdoNet.Web.Controllers
             }
         }
 
-        public IActionResult Insert()
+        public IActionResult Create()
         {
             try
             {
@@ -63,6 +63,8 @@ namespace Hero_MVC_AdoNet.Web.Controllers
             {
                 if (!ModelState.IsValid)
                     throw new Exception("Por favor valide se as informações estão corretas.");
+
+                model.UpdateDate = DateTime.Now;
 
                 if (!_service.Insert(model))
                     throw new Exception("Erro ao inserir herói.");

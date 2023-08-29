@@ -5,12 +5,11 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE PROCEDURE [dbo].[HeroInsert]
-	@Name VARCHAR = 'Homem de Ferro',
-	@Active BIT = 0,
-	@UpdateDate DATETIME = GETDATE()
+	@Name VARCHAR(50),
+	@Active BIT,
+	@UpdateDate DATETIME
 AS
 BEGIN
-	SET NOCOUNT ON;
 	INSERT INTO Heroes
 		([Name], [Active], [UpdateDate])
 	VALUES

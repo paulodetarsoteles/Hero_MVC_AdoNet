@@ -6,7 +6,6 @@ GO
 CREATE PROCEDURE [dbo].[SecretGetAll] 
 AS
 BEGIN
-	SET NOCOUNT ON;
 	SELECT * 
 		FROM Secrets
 	ORDER BY 1 DESC 
