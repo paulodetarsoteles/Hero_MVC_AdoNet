@@ -42,5 +42,38 @@ namespace Hero_MVC_AdoNet.Web.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
+
+        public IActionResult Insert()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(HeroViewModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    throw new Exception("Por favor valide se as informações estão corretas.");
+
+                if (!_service.Insert(model))
+                    throw new Exception("Erro ao inserir herói.");
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError("", e.Message);
+                return View(model);
+            }
+        }
     }
 }
