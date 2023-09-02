@@ -94,5 +94,15 @@ namespace Hero_MVC_AdoNet.Web.Services
                 throw new(e.Message);
             }
         }
+
+        public bool Update(HeroViewModel model)
+        {
+            return false;
+        }
+
+        public bool Delete(int id)
+        {
+            return false;
+        }
     }
 }
