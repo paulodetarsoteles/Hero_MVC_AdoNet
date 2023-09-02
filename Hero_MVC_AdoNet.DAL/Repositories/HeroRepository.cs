@@ -132,7 +132,7 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
 
             try
             {
-                command.Connection= new SqlConnection(_connection.DefaultConnection);
+                command.Connection = new SqlConnection(_connection.DefaultConnection);
                 command.Connection.Open();
                 command.CommandType = CommandType.StoredProcedure;
 
@@ -143,7 +143,7 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
 
                 int rows = command.ExecuteNonQuery();
 
-                if (rows == 0) 
+                if (rows == 0)
                     return false;
 
                 return true;
@@ -174,7 +174,7 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
 
                 int rows = command.ExecuteNonQuery();
 
-                if (rows == 0) 
+                if (rows == 0)
                     return false;
 
                 return true;
