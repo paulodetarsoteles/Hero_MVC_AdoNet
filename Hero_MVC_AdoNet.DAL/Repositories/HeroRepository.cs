@@ -128,12 +128,67 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
 
         public bool Update(Hero hero)
         {
-            throw new NotImplementedException();
+            SqlCommand command = new("dbo.HeroUpdate");
+
+            try
+            {
+                command.Connection= new SqlConnection(_connection.DefaultConnection);
+                command.Connection.Open();
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("@Id", SqlDbType.Int).Value = hero.HeroId;
+                command.Parameters.Add("@Name", SqlDbType.VarChar).Value = hero.Name;
+                command.Parameters.Add("@Active", SqlDbType.Bit).Value = hero.Active;
+                command.Parameters.Add("@UpdateDate", SqlDbType.DateTime).Value = hero.UpdateDate;
+
+                int rows = command.ExecuteNonQuery();
+
+                if (rows == 0) 
+                    return false;
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new Exception("Erro ao atualizar entidade no banco de dados.");
+            }
+            finally
+            {
+                if (command.Connection.State == ConnectionState.Open)
+                    command.Connection.Close();
+            }
         }
 
         public bool Delete(int heroId)
         {
-            throw new NotImplementedException();
+            SqlCommand command = new("dbo.HeroDelete");
+
+            try
+            {
+                command.Connection = new SqlConnection(_connection.DefaultConnection);
+                command.Connection.Open();
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("@Id", SqlDbType.Int).Value = heroId;
+
+                int rows = command.ExecuteNonQuery();
+
+                if (rows == 0) 
+                    return false;
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new Exception("Erro ao atualizar entidade no banco de dados.");
+            }
+            finally
+            {
+                if (command.Connection.State == ConnectionState.Open)
+                    command.Connection.Close();
+            }
         }
 
         #region SpecificMethods
