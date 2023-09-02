@@ -133,11 +133,11 @@ namespace Hero_MVC_AdoNet.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(HeroViewModel model)
+        public IActionResult Delete(int id, HeroViewModel model)
         {
             try
             {
-                bool result = _service.Delete(model.HeroId);
+                bool result = _service.Delete(id);
 
                 if (!result)
                     throw new Exception("Erro ao excluir herói, verifique as informações.");
@@ -147,7 +147,7 @@ namespace Hero_MVC_AdoNet.Web.Controllers
             catch (Exception e)
             {
                 ModelState.AddModelError("", e.Message);
-                return View(model);
+                return View(_service.GetById(id));
             }
         }
     }

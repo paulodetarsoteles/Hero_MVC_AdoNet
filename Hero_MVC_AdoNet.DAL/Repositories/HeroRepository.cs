@@ -170,7 +170,7 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
                 command.Connection.Open();
                 command.CommandType = CommandType.StoredProcedure;
 
-                command.Parameters.Add("@Id", SqlDbType.Int).Value = heroId;
+                command.Parameters.Add("@HeroId", SqlDbType.Int).Value = heroId;
 
                 int rows = command.ExecuteNonQuery();
 
