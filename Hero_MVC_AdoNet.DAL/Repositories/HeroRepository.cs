@@ -136,7 +136,7 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
                 command.Connection.Open();
                 command.CommandType = CommandType.StoredProcedure;
 
-                command.Parameters.Add("@Id", SqlDbType.Int).Value = hero.HeroId;
+                command.Parameters.Add("@HeroId", SqlDbType.Int).Value = hero.HeroId;
                 command.Parameters.Add("@Name", SqlDbType.VarChar).Value = hero.Name;
                 command.Parameters.Add("@Active", SqlDbType.Bit).Value = hero.Active;
                 command.Parameters.Add("@UpdateDate", SqlDbType.DateTime).Value = hero.UpdateDate;
