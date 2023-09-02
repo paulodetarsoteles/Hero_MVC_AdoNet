@@ -109,7 +109,7 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
 
                 hero.HeroId = (int)command.ExecuteScalar();
 
-                if (hero.HeroId == 0 )
+                if (hero.HeroId == 0)
                     return false;
 
                 return true;
