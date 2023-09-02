@@ -97,12 +97,38 @@ namespace Hero_MVC_AdoNet.Web.Services
 
         public bool Update(HeroViewModel model)
         {
-            return false;
+            try
+            {
+                Hero hero = new()
+                {
+                    HeroId = model.HeroId,
+                    Name = model.Name,
+                    Active = model.Active,
+                    UpdateDate = model.UpdateDate
+                };
+
+                return _heroRepository.Update(hero);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Erro: {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new(e.Message);
+            }
         }
 
         public bool Delete(int id)
         {
-            return false;
+            try
+            {
+                Hero hero = _heroRepository.GetById(id) ?? throw new Exception("Herói não encontrado");
+
+                return _heroRepository.Delete(id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Erro: {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new(e.Message);
+            }
         }
     }
 }
