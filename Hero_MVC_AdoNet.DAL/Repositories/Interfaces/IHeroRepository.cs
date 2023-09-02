@@ -7,8 +7,8 @@ namespace Hero_MVC_AdoNet.DAL.Repositories.Interfaces
         List<Hero> GetAll();
         Hero GetById(int heroId);
         bool Insert(Hero hero);
-        void Update(Hero hero);
-        void Delete(int heroId);
+        bool Update(Hero hero);
+        bool Delete(int heroId);
 
         List<Weapon> GetAllPowers();
         List<Secret> GetAllSecretIdentities();

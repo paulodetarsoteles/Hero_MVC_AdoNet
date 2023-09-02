@@ -126,12 +126,12 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
             }
         }
 
-        public void Update(Hero hero)
+        public bool Update(Hero hero)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(int heroId)
+        public bool Delete(int heroId)
         {
             throw new NotImplementedException();
         }
