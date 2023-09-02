@@ -60,7 +60,7 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
         public Hero GetById(int heroId)
         {
             Hero result = new();
-            SqlCommand command = new("dbo.MovieGetById");
+            SqlCommand command = new("dbo.HeroGetById");
 
             try
             {
