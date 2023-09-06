@@ -25,18 +25,5 @@ namespace Hero_MVC_AdoNet.Web.ViewModels
         public List<Weapon> Weapons { get; set; }
 
         public HeroViewModel() { }
-
-        public HeroViewModel(string Name, bool Active, DateTime UpdateDate, Secret Secret, List<Weapon> Weapons, int HeroId = 0)
-        {
-            if (HeroId != 0)
-                this.HeroId = HeroId;
-
-            this.Name = Name;
-            this.Active = Active;
-            this.UpdateDate = UpdateDate;
-
-            this.Secret = Secret;
-            this.Weapons = Weapons;
-        }
     }
 }

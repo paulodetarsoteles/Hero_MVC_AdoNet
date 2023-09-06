@@ -19,32 +19,5 @@ namespace Hero_MVC_AdoNet.Web.ViewModels
         public Hero Hero { get; set; }
 
         public SecretViewModel() { }
-
-        public SecretViewModel(string Name, int SecretId = 0)
-        {
-            if (SecretId != 0)
-                this.SecretId = SecretId;
-
-            this.Name = Name;
-        }
-
-        public SecretViewModel(string Name, int HeroId, int SecretId = 0)
-        {
-            if (SecretId != 0)
-                this.SecretId = SecretId;
-
-            this.Name = Name;
-            this.HeroId = HeroId;
-        }
-
-        public SecretViewModel(string Name, int HeroId, Hero Hero, int SecretId = 0)
-        {
-            if (SecretId != 0)
-                this.SecretId = SecretId;
-
-            this.Name = Name;
-            this.HeroId = HeroId;
-            this.Hero = Hero;
-        }
     }
 }

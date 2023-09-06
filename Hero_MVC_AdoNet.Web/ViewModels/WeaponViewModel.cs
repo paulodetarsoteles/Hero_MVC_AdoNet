@@ -19,16 +19,5 @@ namespace Hero_MVC_AdoNet.Web.ViewModels
         public int HeroId { get; set; }
 
         public WeaponViewModel() { }
-
-        public WeaponViewModel(string Name, WeaponEnum Type, int HeroId, int WeaponId = 0)
-        {
-            if (WeaponId != 0)
-                this.WeaponId = WeaponId;
-
-            this.Name = Name;
-            this.Type = Type;
-            this.HeroId = HeroId;
-            this.WeaponId = WeaponId;
-        }
     }
 }

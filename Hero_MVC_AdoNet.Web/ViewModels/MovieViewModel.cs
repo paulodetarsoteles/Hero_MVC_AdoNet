@@ -20,15 +20,5 @@ namespace Hero_MVC_AdoNet.Web.ViewModels
         public List<Hero> Heroes { get; set; }
 
         public MovieViewModel() { }
-
-        public MovieViewModel(string Name, int Rate, List<Hero> Heroes, int MovieId = 0)
-        {
-            if (MovieId != 0)
-                this.MovieId = MovieId;
-
-            this.Name = Name;
-            this.Rate = Rate;
-            this.Heroes = Heroes;
-        }
     }
 }
