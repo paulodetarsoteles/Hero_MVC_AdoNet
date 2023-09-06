@@ -6,8 +6,8 @@ namespace Hero_MVC_AdoNet.DAL.Repositories.Interfaces
     {
         List<Secret> GetAll();
         Secret GetById(int secretId);
-        void Insert(Secret secret);
-        void Update(Secret secret);
-        void Delete(int secretId);
+        bool Insert(Secret secret);
+        bool Update(Secret secret);
+        bool Delete(int secretId);
     }
 }

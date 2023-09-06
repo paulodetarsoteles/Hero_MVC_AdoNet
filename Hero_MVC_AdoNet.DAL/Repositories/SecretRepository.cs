@@ -91,17 +91,17 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
             }
         }
 
-        public void Insert(Secret secret)
+        public bool Insert(Secret secret)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Secret secret)
+        public bool Update(Secret secret)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(int secretId)
+        public bool Delete(int secretId)
         {
             throw new NotImplementedException();
         }
