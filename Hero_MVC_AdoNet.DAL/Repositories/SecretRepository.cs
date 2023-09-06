@@ -93,17 +93,96 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
 
         public bool Insert(Secret secret)
         {
-            throw new NotImplementedException();
+            SqlCommand command = new("dbo.SecretInsert");
+
+            try
+            {
+                command.Connection = new SqlConnection(_connection.DefaultConnection);
+                command.Connection.Open();
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("@Name", SqlDbType.VarChar).Value = secret.Name;
+
+                secret.SecretId = (int)command.ExecuteScalar();
+
+                if (secret.SecretId == 0)
+                    return false;
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new Exception("Erro ao inserir entidade no banco de dados.");
+            }
+            finally
+            {
+                if (command.Connection.State == ConnectionState.Open)
+                    command.Connection.Close();
+            }
         }
 
         public bool Update(Secret secret)
         {
-            throw new NotImplementedException();
+            SqlCommand command = new("dbo.SecretUpdate");
+
+            try
+            {
+                command.Connection = new SqlConnection(_connection.DefaultConnection);
+                command.Connection.Open();
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("@SecretId", SqlDbType.Int).Value = secret.SecretId;
+                command.Parameters.Add("@Name", SqlDbType.VarChar).Value = secret.Name;
+
+                int rows = command.ExecuteNonQuery();
+
+                if (rows == 0)
+                    return false;
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new Exception("Erro ao atualizar entidade no banco de dados.");
+            }
+            finally
+            {
+                if (command.Connection.State == ConnectionState.Open)
+                    command.Connection.Close();
+            }
         }
 
         public bool Delete(int secretId)
         {
-            throw new NotImplementedException();
+            SqlCommand command = new("dbo.SecretDelete");
+
+            try
+            {
+                command.Connection = new SqlConnection(_connection.DefaultConnection);
+                command.Connection.Open();
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("@SecretId", SqlDbType.Int).Value = secretId;
+
+                int rows = command.ExecuteNonQuery();
+
+                if (rows == 0)
+                    return false;
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new Exception("Erro ao atualizar entidade no banco de dados.");
+            }
+            finally
+            {
+                if (command.Connection.State == ConnectionState.Open)
+                    command.Connection.Close();
+            }
         }
     }
 }
