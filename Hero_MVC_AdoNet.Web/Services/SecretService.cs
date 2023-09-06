@@ -53,13 +53,67 @@ namespace Hero_MVC_AdoNet.Web.Services
                 if (secret is null)
                     return null;
 
-                SecretViewModel result = new();
-
-                result.SecretId = secret.SecretId;
-                result.Name = secret.Name;
-                result.HeroId = secret.HeroId;
+                SecretViewModel result = new()
+                {
+                    SecretId = secret.SecretId,
+                    Name = secret.Name,
+                    HeroId = secret.HeroId
+                };
 
                 return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Erro: {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new(e.Message);
+            }
+        }
+
+        public bool Insert(SecretViewModel model)
+        {
+            try
+            {
+                Secret secret = new()
+                {
+                    SecretId = model.SecretId,
+                    Name = model.Name
+                };
+
+                return _secretRepository.Insert(secret);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Erro: {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new(e.Message);
+            }
+        }
+
+        public bool Update(SecretViewModel model)
+        {
+            try
+            {
+                Secret secret = new()
+                {
+                    SecretId = model.SecretId,
+                    Name = model.Name
+                };
+
+                return _secretRepository.Update(secret);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Erro: {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new(e.Message);
+            }
+        }
+
+        public bool Delete(int id)
+        {
+            try
+            {
+                Secret secret = _secretRepository.GetById(id) ?? throw new Exception("Identidade secreta não encontrada");
+
+                return _secretRepository.Delete(id);
             }
             catch (Exception e)
             {

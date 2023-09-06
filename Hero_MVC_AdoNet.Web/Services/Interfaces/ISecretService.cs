@@ -6,5 +6,8 @@ namespace Hero_MVC_AdoNet.Web.Services.Interfaces
     {
         List<SecretViewModel> GetAll();
         SecretViewModel GetById(int id);
+        bool Insert(SecretViewModel model);
+        bool Update(SecretViewModel model);
+        bool Delete(int id);
     }
 }
