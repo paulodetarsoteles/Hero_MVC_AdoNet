@@ -37,8 +37,7 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
                     result.Add(new Secret
                     {
                         SecretId = Convert.ToInt32(reader["SecretId"]),
-                        Name = reader["Name"].ToString(),
-                        HeroId = Convert.ToInt32(reader["HeroId"])
+                        Name = reader["Name"].ToString()
                     });
                 }
 
@@ -75,7 +74,7 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
 
                 result.SecretId = Convert.ToInt32(reader["SecretId"]);
                 result.Name = reader["Name"].ToString();
-                result.HeroId = Convert.ToInt32(reader["HeroId"]);
+                //result.HeroId = Convert.ToInt32(reader["HeroId"]);
 
                 return result;
             }
