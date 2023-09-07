@@ -2,6 +2,7 @@
 using Hero_MVC_AdoNet.Domain.Models;
 using Hero_MVC_AdoNet.Web.Services.Interfaces;
 using Hero_MVC_AdoNet.Web.ViewModels;
+using System.Reflection;
 
 namespace Hero_MVC_AdoNet.Web.Services
 {
@@ -28,13 +29,19 @@ namespace Hero_MVC_AdoNet.Web.Services
                 List<Secret> secrets = _secretRepository.GetAll();
 
                 foreach (Secret secret in secrets)
-                    result.Add(new SecretViewModel
+                {
+                    SecretViewModel model = new() 
                     {
                         SecretId = secret.SecretId,
                         Name = secret.Name,
-                        HeroId = secret.HeroId,
-                        Hero = _heroRepository.GetById((int)secret.HeroId)
-                    });
+                        HeroId = secret.HeroId
+                    };
+
+                    if (model.HeroId != null)
+                        model.Hero = _heroRepository.GetById((int)secret.HeroId);
+
+                    result.Add(model);
+                }
 
                 return result;
             }
@@ -58,9 +65,11 @@ namespace Hero_MVC_AdoNet.Web.Services
                 {
                     SecretId = secret.SecretId,
                     Name = secret.Name,
-                    HeroId = secret.HeroId,
-                    Hero = _heroRepository.GetById((int)secret.HeroId)
+                    HeroId = secret.HeroId
                 };
+
+                if (result.HeroId != null)
+                    result.Hero = _heroRepository.GetById((int)secret.HeroId);
 
                 return result;
             }
