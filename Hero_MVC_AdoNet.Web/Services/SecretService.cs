@@ -2,7 +2,6 @@
 using Hero_MVC_AdoNet.Domain.Models;
 using Hero_MVC_AdoNet.Web.Services.Interfaces;
 using Hero_MVC_AdoNet.Web.ViewModels;
-using System.Reflection;
 
 namespace Hero_MVC_AdoNet.Web.Services
 {
@@ -30,7 +29,7 @@ namespace Hero_MVC_AdoNet.Web.Services
 
                 foreach (Secret secret in secrets)
                 {
-                    SecretViewModel model = new() 
+                    SecretViewModel model = new()
                     {
                         SecretId = secret.SecretId,
                         Name = secret.Name,

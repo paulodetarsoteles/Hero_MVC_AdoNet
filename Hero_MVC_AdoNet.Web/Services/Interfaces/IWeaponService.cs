@@ -6,5 +6,11 @@ namespace Hero_MVC_AdoNet.Web.Services.Interfaces
     {
         List<WeaponViewModel> GetAll();
         WeaponViewModel GetById(int id);
+
+        bool Insert(WeaponViewModel model);
+        bool Update(WeaponViewModel model);
+        bool Delete(int id);
+
+        List<HeroDropDownViewModel> GetAllHeroes();
     }
 }

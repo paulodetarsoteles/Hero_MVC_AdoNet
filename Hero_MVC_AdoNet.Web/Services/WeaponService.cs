@@ -69,5 +69,81 @@ namespace Hero_MVC_AdoNet.Web.Services
                 throw new(e.Message);
             }
         }
+
+        public bool Insert(WeaponViewModel model)
+        {
+            try
+            {
+                Weapon weapon = new()
+                {
+                    WeaponId = model.WeaponId,
+                    Name = model.Name,
+                    Type = model.Type,
+                    HeroId = model.HeroId
+                };
+
+                return _weaponRepository.Insert(weapon);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Erro: {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new(e.Message);
+            }
+        }
+
+        public bool Update(WeaponViewModel model)
+        {
+            try
+            {
+                Weapon weapon = new()
+                {
+                    WeaponId = model.WeaponId,
+                    Name = model.Name,
+                    Type = model.Type,
+                    HeroId = model.HeroId
+                };
+
+                return _weaponRepository.Update(weapon);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Erro: {e.Message} = {e.StackTrace} - {DateTime.Now}");
+                throw new(e.Message);
+            }
+        }
+
+        public bool Delete(int id)
+        {
+            Weapon weapon = _weaponRepository.GetById(id) ?? throw new Exception("Arma/Poder não encontrada");
+
+            return _weaponRepository.Delete(id);
+        }
+
+        #region Othor Methods
+
+        public List<HeroDropDownViewModel> GetAllHeroes()
+        {
+            try
+            {
+                List<HeroDropDownViewModel> result = new();
+                List<Hero> heroes = _heroRepository.GetAll();
+
+                foreach (Hero hero in heroes)
+                    result.Add(new HeroDropDownViewModel
+                    {
+                        HeroId = hero.HeroId,
+                        Name = hero.Name
+                    });
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Erro: {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new(e.Message);
+            }
+        }
+
+        #endregion
     }
 }
