@@ -32,7 +32,7 @@ namespace Hero_MVC_AdoNet.Web.Services
                     {
                         SecretId = secret.SecretId,
                         Name = secret.Name,
-                        HeroId = secret.HeroId
+                        HeroId = secret.HeroId,
                         Hero = _heroRepository.GetById(secret.HeroId)
                     });
 
