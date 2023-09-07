@@ -46,7 +46,7 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
                     }
                     catch
                     {
-                        secret.HeroId = 0;
+                        secret.HeroId = null;
                     }
 
                     result.Add(secret);
@@ -93,7 +93,7 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
                 }
                 catch
                 {
-                    result.HeroId = 0;
+                    result.HeroId = null;
                 }
 
                 return result;

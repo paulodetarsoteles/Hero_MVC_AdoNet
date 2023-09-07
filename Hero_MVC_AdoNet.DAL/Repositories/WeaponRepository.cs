@@ -35,13 +35,21 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
 
                 while (reader.Read())
                 {
-                    result.Add(new Weapon
+                    Weapon weapon = new()
                     {
                         WeaponId = Convert.ToInt32(reader["WeaponId"]),
                         Name = reader["Name"].ToString(),
-                        Type = (WeaponEnum)Convert.ToInt16(reader["Type"]),
-                        HeroId = Convert.ToInt32(reader["HeroId"])
-                    });
+                        Type = (WeaponEnum)Convert.ToInt16(reader["Type"])
+                    };
+
+                    try
+                    {
+                        weapon.HeroId = Convert.ToInt32(reader["HeroId"]);
+                    }
+                    catch
+                    {
+                        weapon.HeroId = null;
+                    }
                 }
 
                 return result;
@@ -78,7 +86,15 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
                 result.WeaponId = Convert.ToInt32(reader["WeaponId"]);
                 result.Name = reader["Name"].ToString();
                 result.Type = (WeaponEnum)Convert.ToInt16(reader["Type"]);
-                result.HeroId = Convert.ToInt32(reader["HeroId"]);
+
+                try
+                {
+                    result.HeroId = Convert.ToInt32(reader["HeroId"]);
+                }
+                catch
+                {
+                    result.HeroId = null;
+                }
 
                 return result;
             }
@@ -94,19 +110,102 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
             }
         }
 
-        public void Insert(Weapon weapon)
+        public bool Insert(Weapon weapon)
         {
-            throw new NotImplementedException();
+            SqlCommand command = new("dbo.WeaponInsert");
+
+            try
+            {
+                command.Connection = new SqlConnection(_connection.DefaultConnection);
+                command.Connection.Open();
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("@Name", SqlDbType.VarChar).Value = weapon.Name;
+                command.Parameters.Add("@Type", SqlDbType.Int).Value = weapon.Type;
+                command.Parameters.Add("HeroId", SqlDbType.Int).Value = weapon.HeroId;
+
+                weapon.WeaponId = (int)command.ExecuteScalar();
+
+                if (weapon.WeaponId == 0)
+                    return false;
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new Exception("Erro ao inserir entidade no banco de dados.");
+            }
+            finally
+            {
+                if (command.Connection.State == ConnectionState.Open)
+                    command.Connection.Close();
+            }
         }
 
-        public void Update(Weapon weapon)
+        public bool Update(Weapon weapon)
         {
-            throw new NotImplementedException();
+            SqlCommand command = new("dbo.WeaponUpdate");
+
+            try
+            {
+                command.Connection = new SqlConnection(_connection.DefaultConnection);
+                command.Connection.Open();
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("@WeaponId", SqlDbType.Int).Value = weapon.WeaponId;
+                command.Parameters.Add("@Name", SqlDbType.VarChar).Value = weapon.Name;
+                command.Parameters.Add("@Type", SqlDbType.Int).Value = weapon.Type;
+                command.Parameters.Add("@HeroId", SqlDbType.Int).Value = weapon.HeroId;
+
+                int rows = command.ExecuteNonQuery();
+
+                if (rows == 0)
+                    return false;
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new Exception("Erro ao atualizar entidade no banco de dados.");
+            }
+            finally
+            {
+                if (command.Connection.State == ConnectionState.Open)
+                    command.Connection.Close();
+            }
         }
 
-        public void Delete(int weaponId)
+        public bool Delete(int weaponId)
         {
-            throw new NotImplementedException();
+            SqlCommand command = new("dbo.WeaponDelete");
+
+            try
+            {
+                command.Connection = new SqlConnection(_connection.DefaultConnection);
+                command.Connection.Open();
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("@WeaponId", SqlDbType.Int).Value = weaponId;
+
+                int rows = command.ExecuteNonQuery();
+
+                if (rows == 0)
+                    return false;
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new Exception("Erro ao atualizar entidade no banco de dados.");
+            }
+            finally
+            {
+                if (command.Connection.State == ConnectionState.Open)
+                    command.Connection.Close();
+            }
         }
 
         #region SpecificMethods

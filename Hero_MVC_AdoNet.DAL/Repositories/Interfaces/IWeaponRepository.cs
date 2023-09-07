@@ -6,9 +6,9 @@ namespace Hero_MVC_AdoNet.DAL.Repositories.Interfaces
     {
         List<Weapon> GetAll();
         Weapon GetById(int id);
-        void Insert(Weapon weapon);
-        void Update(Weapon weapon);
-        void Delete(int weaponId);
+        bool Insert(Weapon weapon);
+        bool Update(Weapon weapon);
+        bool Delete(int weaponId);
 
         Hero GetHeroByWeaponId(int weaponId);
     }

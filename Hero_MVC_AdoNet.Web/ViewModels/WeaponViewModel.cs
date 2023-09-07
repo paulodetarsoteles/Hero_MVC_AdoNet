@@ -16,7 +16,7 @@ namespace Hero_MVC_AdoNet.Web.ViewModels
         public WeaponEnum Type { get; set; }
 
         [Display(Name = "Código do Herói")]
-        public int HeroId { get; set; }
+        public int? HeroId { get; set; }
 
         public WeaponViewModel() { }
     }
