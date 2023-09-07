@@ -5,14 +5,15 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE PROCEDURE [dbo].[SecretInsert]
-	@Name VARCHAR(50)
+	@Name VARCHAR(50),
+	@HeroId INT = NULL
 AS
 BEGIN
 	SET NOCOUNT ON;
 	INSERT INTO Secrets
-		([Name])
+		([Name], [HeroId])
 	VALUES
-		(@Name)
+		(@Name, @HeroId)
 	OPTION (MAXDOP 2)
 	SELECT CAST(SCOPE_IDENTITY() AS INT)
 END

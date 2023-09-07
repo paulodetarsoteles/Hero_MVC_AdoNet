@@ -101,6 +101,7 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
                 command.CommandType = CommandType.StoredProcedure;
 
                 command.Parameters.Add("@Name", SqlDbType.VarChar).Value = secret.Name;
+                command.Parameters.Add("@HeroId", SqlDbType.Int).Value = secret.HeroId;
 
                 secret.SecretId = (int)command.ExecuteScalar();
 

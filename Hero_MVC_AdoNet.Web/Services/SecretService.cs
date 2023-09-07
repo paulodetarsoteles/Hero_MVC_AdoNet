@@ -33,6 +33,7 @@ namespace Hero_MVC_AdoNet.Web.Services
                         SecretId = secret.SecretId,
                         Name = secret.Name,
                         HeroId = secret.HeroId
+                        Hero = _heroRepository.GetById(secret.HeroId)
                     });
 
                 return result;
@@ -57,7 +58,8 @@ namespace Hero_MVC_AdoNet.Web.Services
                 {
                     SecretId = secret.SecretId,
                     Name = secret.Name,
-                    HeroId = secret.HeroId
+                    HeroId = secret.HeroId,
+                    Hero = _heroRepository.GetById(secret.HeroId)
                 };
 
                 return result;
@@ -76,7 +78,8 @@ namespace Hero_MVC_AdoNet.Web.Services
                 Secret secret = new()
                 {
                     SecretId = model.SecretId,
-                    Name = model.Name
+                    Name = model.Name, 
+                    HeroId = model.HeroId
                 };
 
                 return _secretRepository.Insert(secret);
@@ -95,7 +98,8 @@ namespace Hero_MVC_AdoNet.Web.Services
                 Secret secret = new()
                 {
                     SecretId = model.SecretId,
-                    Name = model.Name
+                    Name = model.Name,
+                    HeroId = model.HeroId
                 };
 
                 return _secretRepository.Update(secret);
@@ -121,5 +125,32 @@ namespace Hero_MVC_AdoNet.Web.Services
                 throw new(e.Message);
             }
         }
+
+        #region Other Methods
+
+        public List<HeroViewModel> GetAllHeroes()
+        {
+            try
+            {
+                List<HeroViewModel> result = new();
+                List<Hero> heroes = _heroRepository.GetAll();
+
+                foreach (Hero hero in heroes)
+                    result.Add(new HeroViewModel
+                    {
+                        HeroId = hero.HeroId,
+                        Name = hero.Name
+                    });
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Erro: {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new(e.Message);
+            }
+        }
+
+        #endregion
     }
 }
