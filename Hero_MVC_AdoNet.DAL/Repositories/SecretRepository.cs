@@ -34,11 +34,22 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
 
                 while (reader.Read())
                 {
-                    result.Add(new Secret
+                    Secret secret = new()
                     {
                         SecretId = Convert.ToInt32(reader["SecretId"]),
                         Name = reader["Name"].ToString()
-                    });
+                    };
+
+                    try
+                    {
+                        secret.HeroId = Convert.ToInt32(reader["HeroId"]);
+                    }
+                    catch
+                    {
+                        secret.HeroId = 0;
+                    }
+
+                    result.Add(secret);
                 }
 
                 return result;
@@ -65,6 +76,7 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
                 command.Connection = new SqlConnection(_connection.DefaultConnection);
                 command.Connection.Open();
                 command.CommandType = CommandType.StoredProcedure;
+
                 command.Parameters.Add("@SecretId", SqlDbType.Int).Value = secretId;
 
                 SqlDataReader reader = command.ExecuteReader();
@@ -74,7 +86,15 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
 
                 result.SecretId = Convert.ToInt32(reader["SecretId"]);
                 result.Name = reader["Name"].ToString();
-                //result.HeroId = Convert.ToInt32(reader["HeroId"]);
+
+                try
+                {
+                    result.HeroId = Convert.ToInt32(reader["HeroId"]);
+                }
+                catch
+                {
+                    result.HeroId = 0;
+                }
 
                 return result;
             }
@@ -134,6 +154,7 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
 
                 command.Parameters.Add("@SecretId", SqlDbType.Int).Value = secret.SecretId;
                 command.Parameters.Add("@Name", SqlDbType.VarChar).Value = secret.Name;
+                command.Parameters.Add("@HeroId", SqlDbType.Int).Value = secret.HeroId;
 
                 int rows = command.ExecuteNonQuery();
 

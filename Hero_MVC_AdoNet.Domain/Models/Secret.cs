@@ -12,6 +12,6 @@ namespace Hero_MVC_AdoNet.Domain.Models
         public string Name { get; set; }
 
         [Display(Name = "Código do Herói")]
-        public int HeroId { get; set; }
+        public int? HeroId { get; set; }
     }
 }

@@ -64,7 +64,7 @@ namespace Hero_MVC_AdoNet.Web.Controllers
         {
             try
             {
-                ViewBag.GetAllHeroes = new SelectList(_service.GetAllHeroes(), "HeroId", "Name"); 
+                ViewBag.GetAllHeroes = new SelectList(_service.GetAllHeroes(), "HeroId", "Name");
 
                 if (!ModelState.IsValid)
                     throw new Exception("Por favor valide se as informações estão corretas.");

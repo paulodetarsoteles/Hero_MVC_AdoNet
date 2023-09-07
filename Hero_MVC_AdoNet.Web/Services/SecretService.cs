@@ -33,7 +33,7 @@ namespace Hero_MVC_AdoNet.Web.Services
                         SecretId = secret.SecretId,
                         Name = secret.Name,
                         HeroId = secret.HeroId,
-                        Hero = _heroRepository.GetById(secret.HeroId)
+                        Hero = _heroRepository.GetById((int)secret.HeroId)
                     });
 
                 return result;
@@ -59,7 +59,7 @@ namespace Hero_MVC_AdoNet.Web.Services
                     SecretId = secret.SecretId,
                     Name = secret.Name,
                     HeroId = secret.HeroId,
-                    Hero = _heroRepository.GetById(secret.HeroId)
+                    Hero = _heroRepository.GetById((int)secret.HeroId)
                 };
 
                 return result;
@@ -78,7 +78,7 @@ namespace Hero_MVC_AdoNet.Web.Services
                 Secret secret = new()
                 {
                     SecretId = model.SecretId,
-                    Name = model.Name, 
+                    Name = model.Name,
                     HeroId = model.HeroId
                 };
 
@@ -128,15 +128,15 @@ namespace Hero_MVC_AdoNet.Web.Services
 
         #region Other Methods
 
-        public List<HeroViewModel> GetAllHeroes()
+        public List<HeroDropDownViewModel> GetAllHeroes()
         {
             try
             {
-                List<HeroViewModel> result = new();
+                List<HeroDropDownViewModel> result = new();
                 List<Hero> heroes = _heroRepository.GetAll();
 
                 foreach (Hero hero in heroes)
-                    result.Add(new HeroViewModel
+                    result.Add(new HeroDropDownViewModel
                     {
                         HeroId = hero.HeroId,
                         Name = hero.Name

@@ -6,12 +6,14 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE PROCEDURE [dbo].[SecretUpdate]
 	@SecretId INT,
-	@Name VARCHAR(50)
+	@Name VARCHAR(50),
+	@HeroId INT = NULL
 AS
 BEGIN
 	UPDATE Secrets 
 	SET 
-		Name = @Name
+		Name = @Name,
+		HeroId = @HeroId
 	WHERE SecretId = @SecretId
 	OPTION (MAXDOP 2)
 END
