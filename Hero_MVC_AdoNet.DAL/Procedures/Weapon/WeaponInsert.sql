@@ -1,0 +1,20 @@
+﻿USE [db_Hero_MVC_AdoNet]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[WeaponInsert]
+	@Name VARCHAR(50),
+	@Type INT = 1,
+	@HeroId INT = NULL
+AS
+BEGIN
+	SET NOCOUNT ON;
+	INSERT INTO Weapons
+		([Name], [Type], [HeroId])
+	VALUES
+		(@Name, @Type, @HeroId)
+	OPTION (MAXDOP 2)
+	SELECT CAST(SCOPE_IDENTITY() AS INT)
+END

@@ -2,7 +2,6 @@
 using Hero_MVC_AdoNet.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Reflection;
 
 namespace Hero_MVC_AdoNet.Web.Controllers
 {
@@ -61,7 +60,7 @@ namespace Hero_MVC_AdoNet.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(WeaponViewModel model) 
+        public IActionResult Create(WeaponViewModel model)
         {
             try
             {

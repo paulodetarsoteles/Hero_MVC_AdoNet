@@ -50,6 +50,8 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
                     {
                         weapon.HeroId = null;
                     }
+
+                    result.Add(weapon);
                 }
 
                 return result;
