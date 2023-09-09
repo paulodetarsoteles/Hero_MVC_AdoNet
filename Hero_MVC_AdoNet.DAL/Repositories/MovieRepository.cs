@@ -185,5 +185,35 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
                     command.Connection.Close();
             }
         }
+
+        #region Verify Relations
+
+        public int VerifyRelationOfMovieWithHeroes(int id)
+        {
+            SqlCommand command = new("dbo.VerifyRelationOfMovieWithHeroes");
+
+            try
+            {
+                command.Connection = new SqlConnection(_connection.DefaultConnection);
+                command.Connection.Open();
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("@MovieId", SqlDbType.Int).Value = id;
+
+                return (int)command.ExecuteScalar();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new Exception("Erro ao acessar as informações do banco de dados.");
+            }
+            finally
+            {
+                if (command.Connection.State == ConnectionState.Open)
+                    command.Connection.Close();
+            }
+        }
+
+        #endregion
     }
 }

@@ -1,0 +1,14 @@
+﻿USE [db_Hero_MVC_AdoNet]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[VerifyRelationWithMovies]
+	@HeroId INT
+AS
+BEGIN
+	SELECT COUNT(HeroMovieId) 
+	FROM HeroesMovies 
+	WHERE HeroId = @HeroId
+END

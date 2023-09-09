@@ -125,9 +125,9 @@ namespace Hero_MVC_AdoNet.Web.Controllers
 
                 int relationsWithSecret = _service.VerifyRelationWithSecret(id);
                 int relationsWithWeapons = _service.VerifyRelationWithWeapons(id);
-                //int relationsWithMovies = _service.VerifyRelationWithMovies(id);
+                int relationsWithMovies = _service.VerifyRelationWithMovies(id);
 
-                if (relationsWithSecret == 0 && relationsWithWeapons == 0)
+                if (relationsWithSecret == 0 && relationsWithWeapons == 0 && relationsWithMovies == 0)
                     return View(model);
 
                 string relationsMessage = "Verifique as relações antes de excluir o herói: ";
@@ -138,10 +138,10 @@ namespace Hero_MVC_AdoNet.Web.Controllers
                 if (relationsWithWeapons != 0)
                     relationsMessage += $" e {relationsWithWeapons} relações com armas/poderes";
 
-                //if (relationsWithMovies != 0)
-                //    relationsMessage += $" e {relationsWithMovies} relações com filmes";
+                if (relationsWithMovies != 0)
+                    relationsMessage += $" e {relationsWithMovies} relações com filmes";
 
-                ModelState.AddModelError("ATENÇÃO! ", relationsMessage);
+                ModelState.AddModelError("", relationsMessage);
                 return View(model);
             }
             catch (Exception)

@@ -9,5 +9,7 @@ namespace Hero_MVC_AdoNet.DAL.Repositories.Interfaces
         bool Insert(Movie movie);
         bool Update(Movie movie);
         bool Delete(int movieId);
+
+        public int VerifyRelationOfMovieWithHeroes(int id);
     }
 }

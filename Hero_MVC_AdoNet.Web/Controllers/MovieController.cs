@@ -1,6 +1,7 @@
 ﻿using Hero_MVC_AdoNet.Web.Services.Interfaces;
 using Hero_MVC_AdoNet.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Hero_MVC_AdoNet.Web.Controllers
 {
@@ -47,6 +48,8 @@ namespace Hero_MVC_AdoNet.Web.Controllers
         {
             try
             {
+                ViewBag.GetAllHeroes = new SelectList(_service.GetAllHeroes(), "HeroId", "Name");
+
                 return View();
             }
             catch (Exception)
@@ -61,6 +64,8 @@ namespace Hero_MVC_AdoNet.Web.Controllers
         {
             try
             {
+                ViewBag.GetAllHeroes = new SelectList(_service.GetAllHeroes(), "HeroId", "Name");
+
                 if (!ModelState.IsValid)
                     throw new Exception("Por favor valide se as informações estão corretas.");
 
@@ -80,6 +85,8 @@ namespace Hero_MVC_AdoNet.Web.Controllers
         {
             try
             {
+                ViewBag.GetAllHeroes = new SelectList(_service.GetAllHeroes(), "HeroId", "Name");
+
                 MovieViewModel model = _service.GetById(id);
                 model ??= new();
 
@@ -97,6 +104,8 @@ namespace Hero_MVC_AdoNet.Web.Controllers
         {
             try
             {
+                ViewBag.GetAllHeroes = new SelectList(_service.GetAllHeroes(), "HeroId", "Name");
+
                 if (!ModelState.IsValid)
                     throw new Exception("Por favor valide se as informações estão corretas.");
 
@@ -119,6 +128,14 @@ namespace Hero_MVC_AdoNet.Web.Controllers
                 MovieViewModel model = _service.GetById(id);
                 model ??= new();
 
+                int relationWithHeroes = _service.VerifyRelationOfMovieWithHeroes(id);
+
+                if (relationWithHeroes == 0)
+                    return View(model);
+
+                string relationsMessage = $"Verifique as relações antes de excluir o filme: {relationWithHeroes} relações com heróis";
+
+                ModelState.AddModelError("", relationsMessage);
                 return View(model);
             }
             catch (Exception)

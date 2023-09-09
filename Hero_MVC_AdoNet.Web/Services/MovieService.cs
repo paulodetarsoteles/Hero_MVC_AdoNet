@@ -74,17 +74,97 @@ namespace Hero_MVC_AdoNet.Web.Services
 
         public bool Insert(MovieViewModel model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Movie movie = new()
+                {
+                    MovieId = model.MovieId,
+                    Name = model.Name,
+                    Rate = model.Rate
+                };
+
+                return _movieRepository.Insert(movie);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Erro: {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new(e.Message);
+            }
         }
 
         public bool Update(MovieViewModel model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Movie movie = new()
+                {
+                    MovieId = model.MovieId,
+                    Name = model.Name,
+                    Rate = model.Rate
+                };
+
+                return _movieRepository.Update(movie);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Erro: {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new(e.Message);
+            }
         }
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Movie movie = _movieRepository.GetById(id) ?? throw new Exception("Filme não encontrado");
+
+                return _movieRepository.Delete(id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Erro: {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new(e.Message);
+            }
         }
+
+        #region Other Methods
+
+        public List<HeroDropDownViewModel> GetAllHeroes()
+        {
+            try
+            {
+                List<HeroDropDownViewModel> result = new();
+                List<Hero> heroes = _heroRepository.GetAll();
+
+                foreach (Hero hero in heroes)
+                    result.Add(new HeroDropDownViewModel
+                    {
+                        HeroId = hero.HeroId,
+                        Name = hero.Name
+                    });
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Erro: {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new(e.Message);
+            }
+        }
+
+        public int VerifyRelationOfMovieWithHeroes(int id)
+        {
+            try
+            {
+                return _movieRepository.VerifyRelationOfMovieWithHeroes(id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Erro: {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new(e.Message);
+            }
+        }
+
+        #endregion
     }
 }
