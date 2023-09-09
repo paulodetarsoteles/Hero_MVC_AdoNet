@@ -43,7 +43,7 @@ namespace Hero_MVC_AdoNet.Web.Controllers
             }
         }
 
-        public IActionResult Create() 
+        public IActionResult Create()
         {
             try
             {
