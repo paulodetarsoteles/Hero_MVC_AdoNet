@@ -120,8 +120,6 @@ namespace Hero_MVC_AdoNet.Web.Services
         {
             try
             {
-                Hero hero = _heroRepository.GetById(id) ?? throw new Exception("Herói não encontrado");
-
                 return _heroRepository.Delete(id);
             }
             catch (Exception e)
@@ -130,5 +128,48 @@ namespace Hero_MVC_AdoNet.Web.Services
                 throw new(e.Message);
             }
         }
+
+        #region Methods of Verify Relations
+
+        public int VerifyRelationWithSecret(int id)
+        {
+            try
+            {
+                return _heroRepository.VerifyRelationWithSecret(id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Erro: {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new(e.Message);
+            }
+        }
+
+        public int VerifyRelationWithWeapons(int id)
+        {
+            try
+            {
+                return _heroRepository.VerifyRelationWithWeapons(id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Erro: {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new(e.Message);
+            }
+        }
+
+        public int VerifyRelationWithMovies(int id)
+        {
+            try
+            {
+                return _heroRepository.VerifyRelationWithMovies(id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Erro: {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new(e.Message);
+            }
+        }
+
+        #endregion
     }
 }

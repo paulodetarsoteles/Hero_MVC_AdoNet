@@ -190,5 +190,87 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
                     command.Connection.Close();
             }
         }
+
+        #region Methods of Verify Relations
+
+        public int VerifyRelationWithSecret(int id)
+        {
+            SqlCommand command = new("dbo.VerifyRelationWithSecret");
+
+            try
+            {
+                command.Connection = new SqlConnection(_connection.DefaultConnection);
+                command.Connection.Open();
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("@HeroId", SqlDbType.Int).Value = id;
+
+                return (int)command.ExecuteScalar();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new Exception("Erro ao acessar as informações do banco de dados.");
+            }
+            finally
+            {
+                if (command.Connection.State == ConnectionState.Open)
+                    command.Connection.Close();
+            }
+        }
+
+        public int VerifyRelationWithWeapons(int id)
+        {
+            SqlCommand command = new("dbo.VerifyRelationWithWeapons");
+
+            try
+            {
+                command.Connection = new SqlConnection(_connection.DefaultConnection);
+                command.Connection.Open();
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("@HeroId", SqlDbType.Int).Value = id;
+
+                return (int)command.ExecuteScalar();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new Exception("Erro ao acessar as informações do banco de dados.");
+            }
+            finally
+            {
+                if (command.Connection.State == ConnectionState.Open)
+                    command.Connection.Close();
+            }
+        }
+
+        public int VerifyRelationWithMovies(int id)
+        {
+            SqlCommand command = new("dbo.VerifyRelationWithMovies");
+
+            try
+            {
+                command.Connection = new SqlConnection(_connection.DefaultConnection);
+                command.Connection.Open();
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("@HeroId", SqlDbType.Int).Value = id;
+
+                return (int)command.ExecuteScalar();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new Exception("Erro ao acessar as informações do banco de dados.");
+            }
+            finally
+            {
+                if (command.Connection.State == ConnectionState.Open)
+                    command.Connection.Close();
+            }
+        }
+
+        #endregion
     }
 }

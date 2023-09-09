@@ -123,6 +123,25 @@ namespace Hero_MVC_AdoNet.Web.Controllers
                 HeroViewModel model = _service.GetById(id);
                 model ??= new();
 
+                int relationsWithSecret = _service.VerifyRelationWithSecret(id);
+                int relationsWithWeapons = _service.VerifyRelationWithWeapons(id);
+                //int relationsWithMovies = _service.VerifyRelationWithMovies(id);
+
+                if (relationsWithSecret == 0 &&  relationsWithWeapons == 0)
+                    return View(model);
+
+                string relationsMessage = "Verifique as relações antes de excluir o herói: ";
+
+                if (relationsWithSecret != 0)
+                    relationsMessage += $"{relationsWithSecret} relações com identidades secretas";
+
+                if (relationsWithWeapons != 0)
+                    relationsMessage += $" e {relationsWithWeapons} relações com armas/poderes" ;
+
+                //if (relationsWithMovies != 0)
+                //    relationsMessage += $" e {relationsWithMovies} relações com filmes";
+
+                ModelState.AddModelError("ATENÇÃO! ", relationsMessage);
                 return View(model);
             }
             catch (Exception)
