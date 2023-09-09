@@ -42,5 +42,83 @@ namespace Hero_MVC_AdoNet.Web.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
+
+        public IActionResult Create() 
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(MovieViewModel model)
+        {
+            try
+            {
+                return View(nameof(Index));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public IActionResult Edit(int id)
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(MovieViewModel model)
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id, MovieViewModel model)
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

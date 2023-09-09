@@ -71,5 +71,20 @@ namespace Hero_MVC_AdoNet.Web.Services
                 throw new(e.Message);
             }
         }
+
+        public bool Insert(MovieViewModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Update(MovieViewModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

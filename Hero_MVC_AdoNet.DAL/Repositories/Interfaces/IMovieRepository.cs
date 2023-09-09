@@ -6,9 +6,9 @@ namespace Hero_MVC_AdoNet.DAL.Repositories.Interfaces
     {
         List<Movie> GetAll();
         Movie GetById(int movieId);
-        void Insert(Movie movie);
-        void Update(Movie movie);
-        void Delete(int movieId);
+        bool Insert(Movie movie);
+        bool Update(Movie movie);
+        bool Delete(int movieId);
 
         List<Hero> GetAllHeroes();
         List<Hero> GetHeroesByMovieId(int movieId);

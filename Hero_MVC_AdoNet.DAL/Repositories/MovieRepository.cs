@@ -90,17 +90,17 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
             }
         }
 
-        public void Insert(Movie movie)
+        public bool Insert(Movie movie)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Movie movie)
+        public bool Update(Movie movie)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(int movieId)
+        public bool Delete(int movieId)
         {
             throw new NotImplementedException();
         }
