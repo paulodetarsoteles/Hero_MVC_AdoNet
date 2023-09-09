@@ -11,6 +11,6 @@ namespace Hero_MVC_AdoNet.Web.Services.Interfaces
         bool Delete(int id);
 
         public List<HeroDropDownViewModel> GetAllHeroes();
-        int VerifyRelationOfMovieWithHeroes(int id)
+        int VerifyRelationOfMovieWithHeroes(int id);
     }
 }

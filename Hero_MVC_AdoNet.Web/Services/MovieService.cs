@@ -96,7 +96,7 @@ namespace Hero_MVC_AdoNet.Web.Services
             {
                 Movie movie = new()
                 {
-                    MovieId = model.MovieId,
+                    MovieId = (int)model.MovieId,
                     Name = model.Name,
                     Rate = model.Rate
                 };
@@ -116,7 +116,7 @@ namespace Hero_MVC_AdoNet.Web.Services
             {
                 Movie movie = new()
                 {
-                    MovieId = model.MovieId,
+                    MovieId = (int)model.MovieId,
                     Name = model.Name,
                     Rate = model.Rate
                 };
