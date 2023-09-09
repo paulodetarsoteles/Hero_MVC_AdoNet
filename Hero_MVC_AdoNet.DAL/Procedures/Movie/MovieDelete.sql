@@ -1,0 +1,14 @@
+﻿USE [db_Hero_MVC_AdoNet]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[MovieDelete]
+	@MovieId INT
+AS
+BEGIN
+	DELETE Movies 
+	WHERE MovieId = @MovieId
+	OPTION (MAXDOP 2)
+END
