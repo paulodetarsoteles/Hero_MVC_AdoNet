@@ -5,7 +5,7 @@ namespace Hero_MVC_AdoNet.Web.ViewModels
     public class MovieViewModel
     {
         [Display(Name = "Código do Filme")]
-        public int? MovieId { get; set; }
+        public int MovieId { get; set; }
 
         [Display(Name = "Nome")]
         [Required(ErrorMessage = "Campo obrigatório")]
