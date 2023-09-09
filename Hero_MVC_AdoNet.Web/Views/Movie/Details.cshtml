@@ -28,6 +28,29 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Rate)
         </dd>
+        @if (Model.Heroes is not null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Heroes)
+            </dt>
+            <dd class="col-sm-2">
+                @foreach (var item in Model.Heroes)
+                {
+                    <dl>
+                        @Html.DisplayFor(itemModel => item.Name)
+                    </dl>
+                }
+            </dd>
+        }
+        else
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Heroes)
+            </dt>
+            <dd class="col-sm-2">
+                <p>Nenhum herói vinculado</p>
+            </dd>
+        }
     </dl>
 </div>
 <br />

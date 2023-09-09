@@ -214,6 +214,49 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
             }
         }
 
+        public List<Hero> GetHeroesByMovieId(int movieId)
+        {
+            List<Hero> result = new();
+            SqlCommand command = new("dbo.GetHeroesByMovieId");
+
+            try
+            {
+                command.Connection = new SqlConnection(_connection.DefaultConnection);
+                command.Connection.Open();
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("@MovieId", SqlDbType.Int).Value = movieId;
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (!reader.HasRows)
+                    return result;
+
+                while (reader.Read())
+                {
+                    result.Add(new Hero
+                    {
+                        HeroId = Convert.ToInt32(reader["HeroId"]),
+                        Name = reader["Name"].ToString(),
+                        Active = Convert.ToBoolean(reader["Active"]),
+                        UpdateDate = Convert.ToDateTime(reader["UpdateDate"])
+                    });
+                }
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new Exception("Erro ao acessar as informações do banco de dados.");
+            }
+            finally
+            {
+                if (command.Connection.State == ConnectionState.Open)
+                    command.Connection.Close();
+            }
+        }
+
         #endregion
     }
 }

@@ -63,6 +63,24 @@ namespace Hero_MVC_AdoNet.Web.Services
                 result.Name = movie.Name;
                 result.Rate = movie.Rate;
 
+                int relations = _movieRepository.VerifyRelationOfMovieWithHeroes(id);
+
+                if (relations == 0)
+                    return result;
+
+                List<Hero> heroes = _movieRepository.GetHeroesByMovieId(id);
+
+                foreach (Hero hero in heroes)
+                {
+                    HeroViewModel model = new HeroViewModel()
+                    {
+                        HeroId = hero.HeroId,
+                        Name = hero.Name
+                    };
+
+                    result.Heroes.Add(model);
+                }
+
                 return result;
             }
             catch (Exception e)

@@ -11,5 +11,6 @@ namespace Hero_MVC_AdoNet.DAL.Repositories.Interfaces
         bool Delete(int movieId);
 
         public int VerifyRelationOfMovieWithHeroes(int id);
+        public List<Hero> GetHeroesByMovieId(int movieId);
     }
 }
