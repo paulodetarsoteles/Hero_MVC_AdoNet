@@ -92,36 +92,98 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
 
         public bool Insert(Movie movie)
         {
-            throw new NotImplementedException();
+            SqlCommand command = new("dbo.MovieInsert");
+
+            try
+            {
+                command.Connection = new SqlConnection(_connection.DefaultConnection);
+                command.Connection.Open();
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("@Name", SqlDbType.VarChar).Value = movie.Name;
+                command.Parameters.Add("@Rate", SqlDbType.Int).Value = movie.Rate;
+
+                movie.MovieId = (int)command.ExecuteScalar();
+
+                if (movie.MovieId == 0)
+                    return false;
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new Exception("Erro ao inserir entidade no banco de dados.");
+            }
+            finally
+            {
+                if (command.Connection.State == ConnectionState.Open)
+                    command.Connection.Close();
+            }
         }
 
         public bool Update(Movie movie)
         {
-            throw new NotImplementedException();
+            SqlCommand command = new("dbo.MovieUpdate");
+
+            try
+            {
+                command.Connection = new SqlConnection(_connection.DefaultConnection);
+                command.Connection.Open();
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("@MovieId", SqlDbType.Int).Value = movie.MovieId;
+                command.Parameters.Add("@Name", SqlDbType.VarChar).Value = movie.Name;
+                command.Parameters.Add("@Rate", SqlDbType.Int).Value = movie.Rate;
+
+                int rows = command.ExecuteNonQuery();
+
+                if (rows == 0)
+                    return false;
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new Exception("Erro ao atualizar entidade no banco de dados.");
+            }
+            finally
+            {
+                if (command.Connection.State == ConnectionState.Open)
+                    command.Connection.Close();
+            }
         }
 
         public bool Delete(int movieId)
         {
-            throw new NotImplementedException();
+            SqlCommand command = new("dbo.MovieDelete");
+
+            try
+            {
+                command.Connection = new SqlConnection(_connection.DefaultConnection);
+                command.Connection.Open();
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("@MovieId", SqlDbType.Int).Value = movieId;
+
+                int rows = command.ExecuteNonQuery();
+
+                if (rows == 0)
+                    return false;
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new Exception("Erro ao atualizar entidade no banco de dados.");
+            }
+            finally
+            {
+                if (command.Connection.State == ConnectionState.Open)
+                    command.Connection.Close();
+            }
         }
-
-        #region SpecificMethods
-
-        public List<Hero> GetAllHeroes()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Hero> GetHeroesByMovieId(int movieId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsPresentByMovieIdAndHeroId(int movieId, int heroId)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
     }
 }

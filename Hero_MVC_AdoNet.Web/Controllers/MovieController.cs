@@ -51,7 +51,7 @@ namespace Hero_MVC_AdoNet.Web.Controllers
             }
             catch (Exception)
             {
-                throw;
+                return RedirectToAction("Error", "Home");
             }
         }
 
@@ -61,11 +61,18 @@ namespace Hero_MVC_AdoNet.Web.Controllers
         {
             try
             {
-                return View(nameof(Index));
+                if (!ModelState.IsValid)
+                    throw new Exception("Por favor valide se as informações estão corretas.");
+
+                if (!_service.Insert(model))
+                    throw new Exception("Erro ao inserir filme.");
+
+                return RedirectToAction(nameof(Index));
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                ModelState.AddModelError("", e.Message);
+                return View(model);
             }
         }
 
@@ -73,7 +80,10 @@ namespace Hero_MVC_AdoNet.Web.Controllers
         {
             try
             {
-                return View();
+                MovieViewModel model = _service.GetById(id);
+                model ??= new();
+
+                return View(model);
             }
             catch (Exception)
             {
@@ -87,11 +97,18 @@ namespace Hero_MVC_AdoNet.Web.Controllers
         {
             try
             {
-                return View();
+                if (!ModelState.IsValid)
+                    throw new Exception("Por favor valide se as informações estão corretas.");
+
+                if (!_service.Update(model))
+                    throw new Exception("Erro ao atualizar filme.");
+
+                return RedirectToAction(nameof(Index));
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                ModelState.AddModelError("", e.Message);
+                return View(model);
             }
         }
 
@@ -99,11 +116,14 @@ namespace Hero_MVC_AdoNet.Web.Controllers
         {
             try
             {
-                return View();
+                MovieViewModel model = _service.GetById(id);
+                model ??= new();
+
+                return View(model);
             }
             catch (Exception)
             {
-                throw;
+                return RedirectToAction("Error", "Home");
             }
         }
 
@@ -113,11 +133,17 @@ namespace Hero_MVC_AdoNet.Web.Controllers
         {
             try
             {
-                return View();
+                bool result = _service.Delete(id);
+
+                if (!result)
+                    throw new Exception("Erro ao excluir filme, verifique as informações.");
+
+                return RedirectToAction(nameof(Index));
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                ModelState.AddModelError("", e.Message);
+                return View(_service.GetById(id));
             }
         }
     }

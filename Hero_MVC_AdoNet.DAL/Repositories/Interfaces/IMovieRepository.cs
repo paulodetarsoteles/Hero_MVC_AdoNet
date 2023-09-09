@@ -9,9 +9,5 @@ namespace Hero_MVC_AdoNet.DAL.Repositories.Interfaces
         bool Insert(Movie movie);
         bool Update(Movie movie);
         bool Delete(int movieId);
-
-        List<Hero> GetAllHeroes();
-        List<Hero> GetHeroesByMovieId(int movieId);
-        bool IsPresentByMovieIdAndHeroId(int movieId, int heroId);
     }
 }
