@@ -190,39 +190,5 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
                     command.Connection.Close();
             }
         }
-
-        #region SpecificMethods
-
-        public List<Weapon> GetAllPowers()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Secret> GetAllSecretIdentities()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool HasWeaponByHeroId(int heroId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int CountFilmsByHeroId(int heroId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CleanPowersByHeroId(int heroId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdatePowersByHeroIdAndListWeaponId(int heroId, List<int> weaponsId)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
     }
 }

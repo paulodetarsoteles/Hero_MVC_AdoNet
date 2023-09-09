@@ -9,12 +9,5 @@ namespace Hero_MVC_AdoNet.DAL.Repositories.Interfaces
         bool Insert(Hero hero);
         bool Update(Hero hero);
         bool Delete(int heroId);
-
-        List<Weapon> GetAllPowers();
-        List<Secret> GetAllSecretIdentities();
-        bool HasWeaponByHeroId(int heroId);
-        int CountFilmsByHeroId(int heroId);
-        public void CleanPowersByHeroId(int heroId);
-        public void UpdatePowersByHeroIdAndListWeaponId(int heroId, List<int> weaponsId);
     }
 }
