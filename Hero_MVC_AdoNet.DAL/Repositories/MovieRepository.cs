@@ -257,6 +257,38 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
             }
         }
 
+        public bool AddRelationWithHero(HeroMovie heroMovie)
+        {
+            SqlCommand command = new("dbo.MovieInsert");
+
+            try
+            {
+                command.Connection = new SqlConnection(_connection.DefaultConnection);
+                command.Connection.Open();
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("@HeroId", SqlDbType.Int).Value = heroMovie.HeroId;
+                command.Parameters.Add("@MovieId", SqlDbType.Int).Value = heroMovie.MovieId;
+
+                movie.MovieId = (int)command.ExecuteScalar();
+
+                if (movie.MovieId == 0)
+                    return false;
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new Exception("Erro ao inserir entidade no banco de dados.");
+            }
+            finally
+            {
+                if (command.Connection.State == ConnectionState.Open)
+                    command.Connection.Close();
+            }
+        }
+
         #endregion
     }
 }

@@ -183,6 +183,25 @@ namespace Hero_MVC_AdoNet.Web.Services
             }
         }
 
+        bool AddRelationWithHero(HeroMovieViewModel model)
+        {
+            try
+            {
+                HeroMovie heroMovie = new()
+                {
+                    MovieId = model.MovieId,
+                    HeroId = model.HeroId
+                };
+
+                return _movieRepository.AddRelationWithHero(heroMovie);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Erro: {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new(e.Message);
+            }
+        }
+
         #endregion
     }
 }

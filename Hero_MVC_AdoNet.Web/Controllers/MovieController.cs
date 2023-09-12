@@ -48,8 +48,6 @@ namespace Hero_MVC_AdoNet.Web.Controllers
         {
             try
             {
-                ViewBag.GetAllHeroes = new SelectList(_service.GetAllHeroes(), "HeroId", "Name");
-
                 return View();
             }
             catch (Exception)
@@ -64,8 +62,6 @@ namespace Hero_MVC_AdoNet.Web.Controllers
         {
             try
             {
-                ViewBag.GetAllHeroes = new SelectList(_service.GetAllHeroes(), "HeroId", "Name");
-
                 if (!ModelState.IsValid)
                     throw new Exception("Por favor valide se as informações estão corretas.");
 
@@ -85,8 +81,6 @@ namespace Hero_MVC_AdoNet.Web.Controllers
         {
             try
             {
-                ViewBag.GetAllHeroes = new SelectList(_service.GetAllHeroes(), "HeroId", "Name");
-
                 MovieViewModel model = _service.GetById(id);
                 model ??= new();
 
@@ -104,8 +98,6 @@ namespace Hero_MVC_AdoNet.Web.Controllers
         {
             try
             {
-                ViewBag.GetAllHeroes = new SelectList(_service.GetAllHeroes(), "HeroId", "Name");
-
                 if (!ModelState.IsValid)
                     throw new Exception("Por favor valide se as informações estão corretas.");
 
@@ -161,6 +153,41 @@ namespace Hero_MVC_AdoNet.Web.Controllers
             {
                 ModelState.AddModelError("", e.Message);
                 return View(_service.GetById(id));
+            }
+        }
+
+        public IActionResult AddRelationWithHero(int movieId) 
+        {
+            try
+            {
+                ViewBag.GetAllHeroes = new SelectList(_service.GetAllHeroes(), "HeroId", "Name");
+
+                MovieViewModel model = _service.GetById(movieId);
+                model ??= new();
+
+                return View(model);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddRelationWithHero(HeroMovieViewModel model)
+        {
+            try
+            {
+                ViewBag.GetAllHeroes = new SelectList(_service.GetAllHeroes(), "HeroId", "Name");
+
+                HeroMovieViewModel model = 
+
+                return View(model);
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
     }

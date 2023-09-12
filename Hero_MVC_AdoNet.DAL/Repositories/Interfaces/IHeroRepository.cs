@@ -10,8 +10,8 @@ namespace Hero_MVC_AdoNet.DAL.Repositories.Interfaces
         bool Update(Hero hero);
         bool Delete(int heroId);
 
-        public int VerifyRelationWithSecret(int id);
-        public int VerifyRelationWithWeapons(int id);
-        public int VerifyRelationWithMovies(int id);
+        int VerifyRelationWithSecret(int id);
+        int VerifyRelationWithWeapons(int id);
+        int VerifyRelationWithMovies(int id);
     }
 }

@@ -10,7 +10,8 @@ namespace Hero_MVC_AdoNet.Web.Services.Interfaces
         bool Update(MovieViewModel model);
         bool Delete(int id);
 
-        public List<HeroDropDownViewModel> GetAllHeroes();
+        List<HeroDropDownViewModel> GetAllHeroes();
         int VerifyRelationOfMovieWithHeroes(int id);
+        bool AddRelationWithHero(HeroMovieViewModel model);
     }
 }
