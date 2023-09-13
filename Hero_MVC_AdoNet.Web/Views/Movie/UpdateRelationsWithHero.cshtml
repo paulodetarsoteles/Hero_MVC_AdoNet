@@ -1,0 +1,35 @@
+﻿@model HeroMovieViewModel
+
+@{
+    ViewData["Title"] = "Editar Relações com Heróis";
+}
+
+<h1>Editar Relações com Heróis</h1>
+
+<h4>Dados</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="UpdateRelationsWithHero">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MovieModel.Name" class="control-label" hidden></label>
+                <input asp-for="MovieModel.Name" class="form-control" hidden />
+                <span asp-validation-for="MovieModel.Name" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Voltar</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
