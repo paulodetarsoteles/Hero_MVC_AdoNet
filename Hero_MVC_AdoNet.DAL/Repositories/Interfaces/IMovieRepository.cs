@@ -12,6 +12,8 @@ namespace Hero_MVC_AdoNet.DAL.Repositories.Interfaces
 
         int VerifyRelationOfMovieWithHeroes(int id);
         List<Hero> GetHeroesByMovieId(int movieId);
+        List<HeroMovie> GetHeroMovieByMovieId(int movieId);
         bool AddRelationWithHero(HeroMovie heroMovie);
+        void CleanMovieRelations(int movieId);
     }
 }

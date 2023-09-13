@@ -1,4 +1,5 @@
-﻿using Hero_MVC_AdoNet.Web.ViewModels;
+﻿using Hero_MVC_AdoNet.Domain.Models;
+using Hero_MVC_AdoNet.Web.ViewModels;
 
 namespace Hero_MVC_AdoNet.Web.Services.Interfaces
 {
@@ -10,8 +11,9 @@ namespace Hero_MVC_AdoNet.Web.Services.Interfaces
         bool Update(MovieViewModel model);
         bool Delete(int id);
 
-        List<HeroDropDownViewModel> GetAllHeroes();
         int VerifyRelationOfMovieWithHeroes(int id);
-        bool AddRelationWithHero(HeroMovieViewModel model);
+        List<HeroDropDownViewModel> GetAllHeroes();
+        HeroMovieViewModel GetHeroMovieByMovieId(int movieId);
+        bool UpdateRelationsWithHero(HeroMovieViewModel model);
     }
 }

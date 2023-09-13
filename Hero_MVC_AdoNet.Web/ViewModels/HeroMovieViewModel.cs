@@ -2,10 +2,7 @@
 {
     public class HeroMovieViewModel
     {
-        public int HeroMovieId { get; set; }
-        public int HeroId { get; set; }
-        public int MovieId { get; set; }
-        public HeroViewModel HeroModel { get; set; }
         public MovieViewModel MovieModel { get; set; }
+        public List<HeroViewModel> HeroesModel { get; set; }
     }
 }

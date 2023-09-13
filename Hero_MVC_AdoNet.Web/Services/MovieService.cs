@@ -146,6 +146,19 @@ namespace Hero_MVC_AdoNet.Web.Services
         }
 
         #region Other Methods
+        
+        public int VerifyRelationOfMovieWithHeroes(int id)
+        {
+            try
+            {
+                return _movieRepository.VerifyRelationOfMovieWithHeroes(id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Erro: {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new(e.Message);
+            }
+        }
 
         public List<HeroDropDownViewModel> GetAllHeroes()
         {
@@ -170,11 +183,39 @@ namespace Hero_MVC_AdoNet.Web.Services
             }
         }
 
-        public int VerifyRelationOfMovieWithHeroes(int id)
+        public HeroMovieViewModel GetHeroMovieByMovieId(int movieId)
         {
             try
             {
-                return _movieRepository.VerifyRelationOfMovieWithHeroes(id);
+                List<HeroMovie> heroesMovie = _movieRepository.GetHeroMovieByMovieId(movieId);
+
+                HeroMovieViewModel result = new();
+
+                if (heroesMovie is null)
+                    return result;
+
+                Movie movie = _movieRepository.GetById(movieId);
+
+                MovieViewModel movieViewModel = new()
+                {
+                    MovieId = movie.MovieId,
+                    Name = movie.Name
+                };
+
+                foreach (HeroMovie heroMovie in heroesMovie)
+                {
+                    Hero hero = _heroRepository.GetById(heroMovie.HeroId);
+
+                    HeroViewModel heroViewModel = new()
+                    {
+                        HeroId = hero.HeroId,
+                        Name = hero.Name
+                    };
+
+                    result.HeroesModel.Add(heroViewModel);
+                }
+
+                return result;
             }
             catch (Exception e)
             {
@@ -183,17 +224,31 @@ namespace Hero_MVC_AdoNet.Web.Services
             }
         }
 
-        bool AddRelationWithHero(HeroMovieViewModel model)
+        public bool UpdateRelationsWithHero(HeroMovieViewModel model)
         {
             try
             {
-                HeroMovie heroMovie = new()
+                if (model.HeroesModel is null)
                 {
-                    MovieId = model.MovieId,
-                    HeroId = model.HeroId
-                };
+                    _movieRepository.CleanMovieRelations(model.MovieModel.MovieId);
+                    return true;
+                }
 
-                return _movieRepository.AddRelationWithHero(heroMovie);
+                _movieRepository.CleanMovieRelations(model.MovieModel.MovieId);
+
+                foreach (HeroViewModel heroViewModel in model.HeroesModel)
+                {
+                    HeroMovie heroMovie = new()
+                    {
+                        HeroId = model.MovieModel.MovieId,
+                        MovieId = heroViewModel.HeroId
+                    };
+
+                    if (!_movieRepository.AddRelationWithHero(heroMovie))
+                        return false;
+                }
+
+                return true;
             }
             catch (Exception e)
             {

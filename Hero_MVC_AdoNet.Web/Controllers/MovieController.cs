@@ -156,38 +156,42 @@ namespace Hero_MVC_AdoNet.Web.Controllers
             }
         }
 
-        public IActionResult AddRelationWithHero(int movieId) 
+        public IActionResult UpdateRelationsWithHero(int movieId)
         {
             try
             {
                 ViewBag.GetAllHeroes = new SelectList(_service.GetAllHeroes(), "HeroId", "Name");
 
-                MovieViewModel model = _service.GetById(movieId);
+                HeroMovieViewModel model = _service.GetHeroMovieByMovieId(movieId);
                 model ??= new();
 
                 return View(model);
             }
             catch (Exception)
             {
-                throw;
+                return RedirectToAction("Error", "Home");
             }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddRelationWithHero(HeroMovieViewModel model)
+        public IActionResult UpdateRelationsWithHero(HeroMovieViewModel model)
         {
             try
             {
                 ViewBag.GetAllHeroes = new SelectList(_service.GetAllHeroes(), "HeroId", "Name");
 
-                HeroMovieViewModel model = 
+                bool result = _service.UpdateRelationsWithHero(model);
 
-                return View(model);
+                if (!result)
+                    throw new Exception("Erro ao vincular filme com heróis.");
+
+                return RedirectToAction(nameof(Edit), model);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                ModelState.AddModelError("", e.Message);
+                return View(_service.GetHeroMovieByMovieId(model.MovieModel.MovieId));
             }
         }
     }

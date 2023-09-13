@@ -257,6 +257,47 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
             }
         }
 
+        public List<HeroMovie> GetHeroMovieByMovieId(int movieId)
+        {
+            List<HeroMovie> result = new();
+            SqlCommand command = new("dbo.GetHeroMovieByMovieId");
+
+            try
+            {
+                command.Connection = new SqlConnection(_connection.DefaultConnection);
+                command.Connection.Open();
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("@MovieId", SqlDbType.Int).Value = movieId;
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (!reader.HasRows)
+                    return result;
+
+                while (reader.Read())
+                {
+                    result.Add(new HeroMovie
+                    {
+                        HeroId = Convert.ToInt32(reader["HeroId"]),
+                        MovieId = Convert.ToInt32(reader["MovieId"])
+                    });
+                }
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new Exception("Erro ao acessar as informações do banco de dados.");
+            }
+            finally
+            {
+                if (command.Connection.State == ConnectionState.Open)
+                    command.Connection.Close();
+            }
+        }
+
         public bool AddRelationWithHero(HeroMovie heroMovie)
         {
             SqlCommand command = new("dbo.MovieInsert");
@@ -270,12 +311,36 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
                 command.Parameters.Add("@HeroId", SqlDbType.Int).Value = heroMovie.HeroId;
                 command.Parameters.Add("@MovieId", SqlDbType.Int).Value = heroMovie.MovieId;
 
-                movie.MovieId = (int)command.ExecuteScalar();
-
-                if (movie.MovieId == 0)
+                if (command.ExecuteNonQuery() == 0)
                     return false;
 
                 return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Falha no repositório. {e.Message} - {e.StackTrace} - {DateTime.Now}");
+                throw new Exception("Erro ao inserir entidade no banco de dados.");
+            }
+            finally
+            {
+                if (command.Connection.State == ConnectionState.Open)
+                    command.Connection.Close();
+            }
+        }
+
+        public void CleanMovieRelations(int movieId)
+        {
+            SqlCommand command = new("dbo.MovieHeroClean");
+
+            try
+            {
+                command.Connection = new SqlConnection(_connection.DefaultConnection);
+                command.Connection.Open();
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("@MovieId", SqlDbType.Int).Value = movieId;
+
+                command.ExecuteNonQuery();
             }
             catch (Exception e)
             {
