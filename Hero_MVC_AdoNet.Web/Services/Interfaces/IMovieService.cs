@@ -1,5 +1,4 @@
-﻿using Hero_MVC_AdoNet.Domain.Models;
-using Hero_MVC_AdoNet.Web.ViewModels;
+﻿using Hero_MVC_AdoNet.Web.ViewModels;
 
 namespace Hero_MVC_AdoNet.Web.Services.Interfaces
 {
