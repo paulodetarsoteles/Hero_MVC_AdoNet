@@ -46,6 +46,7 @@ else
                     </td>
                     <td>
                         @Html.ActionLink("Editar", "Edit", new { id = item.MovieId }) |
+                        @Html.ActionLink("Heróis", "UpdateRelationsWithHero", new { id = item.MovieId }) |
                         @Html.ActionLink("Detalhes", "Details", new { id = item.MovieId }) |
                         @Html.ActionLink("Excluir", "Delete", new { id = item.MovieId })
                     </td>
