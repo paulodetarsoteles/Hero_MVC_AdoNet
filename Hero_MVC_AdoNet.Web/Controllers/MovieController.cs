@@ -156,19 +156,20 @@ namespace Hero_MVC_AdoNet.Web.Controllers
             }
         }
 
-        public IActionResult UpdateRelationsWithHero(int movieId)
+        public IActionResult UpdateRelationsWithHero(int id)
         {
             try
             {
                 ViewBag.GetAllHeroes = new SelectList(_service.GetAllHeroes(), "HeroId", "Name");
 
-                HeroMovieViewModel model = _service.GetHeroMovieByMovieId(movieId);
+                HeroMovieViewModel model = _service.GetHeroMovieByMovieId(id);
                 model ??= new();
 
                 return View(model);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                ModelState.AddModelError("", e.Message);
                 return RedirectToAction("Error", "Home");
             }
         }
