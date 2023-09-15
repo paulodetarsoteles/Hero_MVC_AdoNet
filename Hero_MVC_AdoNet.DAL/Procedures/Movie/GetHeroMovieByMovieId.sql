@@ -1,0 +1,15 @@
+﻿USE [db_Hero_MVC_AdoNet]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[GetHeroMovieByMovieId]
+	@MovieId INT
+AS
+BEGIN
+	SELECT [HeroId], [MovieId]
+	FROM HeroesMovies 
+	WHERE MovieId = @MovieId
+	ORDER BY 1 DESC
+END
