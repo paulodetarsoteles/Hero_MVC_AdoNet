@@ -300,7 +300,7 @@ namespace Hero_MVC_AdoNet.DAL.Repositories
 
         public bool AddRelationWithHero(HeroMovie heroMovie)
         {
-            SqlCommand command = new("dbo.MovieInsert");
+            SqlCommand command = new("dbo.AddRelationWithHero");
 
             try
             {
