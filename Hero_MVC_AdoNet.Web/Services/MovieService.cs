@@ -70,6 +70,11 @@ namespace Hero_MVC_AdoNet.Web.Services
 
                 List<Hero> heroes = _movieRepository.GetHeroesByMovieId(id);
 
+                if (heroes.Count == 0)
+                    return result;
+
+                result.Heroes = new();
+
                 foreach (Hero hero in heroes)
                 {
                     HeroViewModel model = new HeroViewModel()
@@ -183,20 +188,37 @@ namespace Hero_MVC_AdoNet.Web.Services
             }
         }
 
+        public HeroViewModel GetHeroById(int id)
+        {
+            Hero hero = _heroRepository.GetById(id) ?? new();
+
+            HeroViewModel model = new()
+            {
+                HeroId = hero.HeroId,
+                Name = hero.Name,
+                Active = hero.Active,
+                UpdateDate = hero.UpdateDate
+            };
+
+            return model;
+        }
+
         public HeroMovieViewModel GetHeroMovieByMovieId(int movieId)
         {
             try
             {
+                Movie movie = _movieRepository.GetById(movieId);
+
                 List<HeroMovie> heroesMovie = _movieRepository.GetHeroMovieByMovieId(movieId);
+
+                if (heroesMovie is null)
+                    return null;
 
                 HeroMovieViewModel result = new();
 
-                if (heroesMovie is null)
-                    return result;
+                result.HeroesModel = new();
 
-                Movie movie = _movieRepository.GetById(movieId);
-
-                MovieViewModel movieViewModel = new()
+                result.MovieModel = new()
                 {
                     MovieId = movie.MovieId,
                     Name = movie.Name
@@ -228,7 +250,7 @@ namespace Hero_MVC_AdoNet.Web.Services
         {
             try
             {
-                if (model.HeroesModel is null)
+                if (model.HeroesModel is null || model.HeroesModel.Count == 0)
                 {
                     _movieRepository.CleanMovieRelations(model.MovieModel.MovieId);
                     return true;
@@ -240,8 +262,8 @@ namespace Hero_MVC_AdoNet.Web.Services
                 {
                     HeroMovie heroMovie = new()
                     {
-                        HeroId = model.MovieModel.MovieId,
-                        MovieId = heroViewModel.HeroId
+                        HeroId = heroViewModel.HeroId,
+                        MovieId = model.MovieModel.MovieId
                     };
 
                     if (!_movieRepository.AddRelationWithHero(heroMovie))

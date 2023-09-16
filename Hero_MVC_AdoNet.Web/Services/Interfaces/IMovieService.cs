@@ -12,6 +12,7 @@ namespace Hero_MVC_AdoNet.Web.Services.Interfaces
 
         int VerifyRelationOfMovieWithHeroes(int id);
         List<HeroDropDownViewModel> GetAllHeroes();
+        HeroViewModel GetHeroById(int id);
         HeroMovieViewModel GetHeroMovieByMovieId(int movieId);
         bool UpdateRelationsWithHero(HeroMovieViewModel model);
     }

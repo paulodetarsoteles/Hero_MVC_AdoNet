@@ -163,7 +163,10 @@ namespace Hero_MVC_AdoNet.Web.Controllers
                 ViewBag.GetAllHeroes = new SelectList(_service.GetAllHeroes(), "HeroId", "Name");
 
                 HeroMovieViewModel model = _service.GetHeroMovieByMovieId(id);
+
                 model ??= new();
+
+                model.HeroesModel ??= new();
 
                 return View(model);
             }
@@ -182,12 +185,33 @@ namespace Hero_MVC_AdoNet.Web.Controllers
             {
                 ViewBag.GetAllHeroes = new SelectList(_service.GetAllHeroes(), "HeroId", "Name");
 
+                string heroesId = Request.Form["chkHero"].ToString();
+
+                if (!string.IsNullOrEmpty(heroesId))
+                {
+                    int[] splitHeroes = heroesId.Split(',').Select(int.Parse).ToArray();
+
+                    if (splitHeroes.Length > 0)
+                    {
+                        List<HeroViewModel> listHeroModels = new();
+                        model.HeroesModel = new();
+
+                        foreach (int heroId in splitHeroes)
+                        {
+                            HeroViewModel heroViewModel = _service.GetHeroById(heroId);
+                            listHeroModels.Add(heroViewModel);
+                        }
+
+                        model.HeroesModel.AddRange(listHeroModels);
+                    }
+                }
+
                 bool result = _service.UpdateRelationsWithHero(model);
 
                 if (!result)
                     throw new Exception("Erro ao vincular filme com heróis.");
 
-                return RedirectToAction(nameof(Edit), model);
+                return RedirectToAction(nameof(Index));
             }
             catch (Exception e)
             {
