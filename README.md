@@ -13,6 +13,6 @@ Obs: Projeto feito com Repository Pattern
 Banco de Dados: Microsoft SQL Server
 
 Relacionamentos: 
-Identidade Secreta/Herói - 1:1
-Herói/Arma - 1:N
-Herói/Filme - N:N
+- Identidade Secreta/Herói - 1:1
+- Herói/Arma - 1:N
+- Herói/Filme - N:N
